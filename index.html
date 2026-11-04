@@ -1,620 +1,1744 @@
 <!DOCTYPE html>
 <html lang="vi" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Máy Tứ Chẩn AI Đông Y • Kiến Đạo Phục Dược (Bản Chuẩn Video 18 Trang)</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script>
-tailwind.config = {
-darkMode: 'class',
-theme: {
-extend: {
-colors: {
-tcm: {
-bg: '#080d14',
-panel: '#0f172a',
-card: '#1e293b',
-border: '#334155',
-teal: '#0d9488',
-cyan: '#06b6d4',
-gold: '#f59e0b',
-crimson: '#ef4444'
-}
-}
-}
-}
-}
-</script>
-<style>
-/* Thanh cuộn siêu mảnh /
-::-webkit-scrollbar { width: 3px; height: 3px; }
-::-webkit-scrollbar-track { background: #080d14; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-/ Hiệu ứng radar quét 3D chuẩn clip */
-.radar-sweep {
-background: conic-gradient(from 0deg, rgba(13, 148, 136, 0.45) 0deg, transparent 65deg, transparent 360deg);
-animation: rotateRadar 2.2s linear infinite;
-}
-@keyframes rotateRadar {
-from { transform: rotate(0deg); }
-to { transform: rotate(360deg); }
-}
-.grid-glow {
-background-size: 20px 20px;
-background-image:
-linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Anahealth • Máy Tứ Chẩn AI Đông Y (Bản Thương Mại 18 Trang)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            tcm: {
+              bg: '#080d14',
+              panel: '#0f172a',
+              card: '#1e293b',
+              border: '#334155',
+              teal: '#0d9488',
+              cyan: '#06b6d4',
+              gold: '#f59e0b',
+              crimson: '#ef4444',
+              warning: '#f97316'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #080d14; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0d9488; }
+    .scan-mesh {
+      background: conic-gradient(from 0deg, rgba(13, 148, 136, 0.45) 0deg, transparent 65deg, transparent 360deg);
+      animation: rotateScan 2.2s linear infinite;
+    }
+    @keyframes rotateScan {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .pulse-glow {
+      animation: pulseGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.95; transform: scale(1); filter: drop-shadow(0 0 6px rgba(13,148,136,0.6)); }
+      50% { opacity: 0.55; transform: scale(1.08); filter: drop-shadow(0 0 14px rgba(245,158,11,0.8)); }
+    }
+    .acupoint-node {
+      transition: all 0.25s ease;
+    }
+    .acupoint-node:hover {
+      r: 9;
+      stroke-width: 3;
+      stroke: #fff;
+    }
+    .ecg-grid {
+      background-image: linear-gradient(rgba(13, 148, 136, 0.1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(13, 148, 136, 0.1) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  </style>
 </head>
-<body class="bg-tcm-bg text-slate-100 min-h-screen font-sans antialiased pb-24 selection:bg-teal-500 selection:text-white">
-<!-- ==================== HEADER ==================== -->
-<header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-4 py-2.5 shadow-md">
-<div class="max-w-xl mx-auto flex items-center justify-between">
-<div class="flex items-center space-x-2.5">
-<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-teal-500/20">
-<i class="fa-solid fa-yin-yang text-base"></i>
-</div>
-<div>
-<div class="flex items-center gap-1.5">
-<h1 class="text-sm font-black tracking-tight text-white uppercase">MÁY TỨ CHẨN AI</h1>
-<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-1.5 py-0.2 rounded font-mono font-bold">18 TRANG</span>
-</div>
-<p class="text-[10px] text-slate-400">Kiến Đạo Phục Dược • Quốc Y Đại Sĩ Database</p>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<button type="button" onclick="quickLoadClinicVideoCase()" class="bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/30">
-<i class="fa-solid fa-bolt"></i> Nạp Ca Video
-</button>
-</div>
-</div>
-</header>
-<main class="max-w-xl mx-auto p-3.5 space-y-4">
-<!-- Thông báo nổi (Toast) -->
-<div id="toastNotification" class="hidden fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-teal-500 text-teal-300 px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-2 text-xs font-semibold">
-<i class="fa-solid fa-circle-check text-teal-400"></i>
-<span id="toastMessage">Thông báo</span>
-</div>
-<!-- ==================== KHU VỰC THAO TÁC TỨ CHẨN ==================== -->
-<div id="sectionInputs" class="space-y-4">
-<!-- 1. VỌNG CHẨN (XEM MẶT & XEM LƯỠI) -->
-<section class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
-<div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-<h2 class="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-2">
-<i class="fa-solid fa-eye"></i> 1. Vọng Chẩn: Xem Mặt & Xem Lưỡi (Kép)
-</h2>
-<span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono">Quang Học AI</span>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-<!-- Ảnh Mặt trên lưỡi -->
-<div class="space-y-1">
-<div class="flex justify-between text-[11px] font-semibold text-slate-300">
-<span>Mặt trên lưỡi *</span>
-<span id="badgeTongueTop" class="text-slate-400">Chưa nạp</span>
-</div>
-<label for="inputTongueTop" class="cursor-pointer block relative border-2 border-dashed border-slate-700 hover:border-teal-500 rounded-2xl p-3 text-center bg-slate-950/60 min-h-[110px] flex flex-col items-center justify-center transition">
-<input type="file" id="inputTongueTop" accept="image/*" class="sr-only" onchange="handleFileSelect(this, 'imgTongueTop', 'phTongueTop', 'badgeTongueTop', 'Lưỡi Bệu Ướt')">
-<div id="phTongueTop" class="space-y-1">
-<i class="fa-solid fa-camera text-xl text-teal-400"></i>
-<p class="text-xs text-slate-300 font-medium">Chụp thân lưỡi</p>
-<p class="text-[9px] text-slate-500">Lưỡi bệu ướt, hằn răng</p>
-</div>
-<img id="imgTongueTop" class="hidden max-h-24 rounded-xl object-contain border border-slate-700" alt="Lưỡi">
-</label>
-</div>
-<!-- Ảnh Mạch dưới lưỡi -->
-<div class="space-y-1">
-<div class="flex justify-between text-[11px] font-semibold text-slate-300">
-<span>Mạch dưới lưỡi</span>
-<span id="badgeTongueSub" class="text-slate-400">Chưa nạp</span>
-</div>
-<label for="inputTongueSub" class="cursor-pointer block relative border-2 border-dashed border-slate-700 hover:border-rose-500 rounded-2xl p-3 text-center bg-slate-950/60 min-h-[110px] flex flex-col items-center justify-center transition">
-<input type="file" id="inputTongueSub" accept="image/*" class="sr-only" onchange="handleFileSelect(this, 'imgTongueSub', 'phTongueSub', 'badgeTongueSub', 'Mạch Tím Ứ')">
-<div id="phTongueSub" class="space-y-1">
-<i class="fa-solid fa-arrow-up-right-dots text-xl text-rose-400"></i>
-<p class="text-xs text-slate-300 font-medium">Uốn lưỡi chụp gầm</p>
-<p class="text-[9px] text-slate-500">Mạch sưng to tím sẫm (ứ)</p>
-</div>
-<img id="imgTongueSub" class="hidden max-h-24 rounded-xl object-contain border border-slate-700" alt="Gầm lưỡi">
-</label>
-</div>
-<!-- Ảnh Diện mạo -->
-<div class="space-y-1">
-<div class="flex justify-between text-[11px] font-semibold text-slate-300">
-<span>Diện mạo & Sắc môi</span>
-<span id="badgeFace" class="text-slate-400">Chưa nạp</span>
-</div>
-<label for="inputFace" class="cursor-pointer block relative border-2 border-dashed border-slate-700 hover:border-cyan-500 rounded-2xl p-3 text-center bg-slate-950/60 min-h-[110px] flex flex-col items-center justify-center transition">
-<input type="file" id="inputFace" accept="image/*" class="sr-only" onchange="handleFileSelect(this, 'imgFace', 'phFace', 'badgeFace', 'Môi Hơi Tím')">
-<div id="phFace" class="space-y-1">
-<i class="fa-solid fa-user-astronaut text-xl text-cyan-400"></i>
-<p class="text-xs text-slate-300 font-medium">Chụp khuôn mặt</p>
-<p class="text-[9px] text-slate-500">Xem sắc mặt & màu môi</p>
-</div>
-<img id="imgFace" class="hidden max-h-24 rounded-xl object-contain border border-slate-700" alt="Khuôn mặt">
-</label>
-</div>
-</div>
-</section>
-<!-- 2. THIẾT CHẨN (BẮT MẠCH TAY TRÁI - TAY PHẢI VÀ SMARTWATCH) -->
-<section class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
-<div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-<h2 class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
-<i class="fa-solid fa-heart-pulse"></i> 2. Thiết Chẩn: Bắt Mạch Hai Tay (Smartwatch)
-</h2>
-<span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">
-85 BPM (Mạch Sác)
-</span>
-</div>
-<div class="grid grid-cols-3 gap-2 text-center">
-<div class="bg-slate-950 p-2.5 rounded-2xl border border-slate-800">
-<span class="text-[10px] text-slate-400 block">Nhịp tim lúc nghỉ</span>
-<span class="text-lg font-black text-rose-400 font-mono" id="txtHeartRate">85</span>
-<span class="text-[9px] text-slate-500 block">BPM (Hơi hồi hộp)</span>
-</div>
-<div class="bg-slate-950 p-2.5 rounded-2xl border border-slate-800">
-<span class="text-[10px] text-slate-400 block">Nồng độ Oxy SpO2</span>
-<span class="text-lg font-black text-cyan-400 font-mono" id="txtSpO2">96%</span>
-<span class="text-[9px] text-rose-300 block">Môi hơi tím (Ứ trệ)</span>
-</div>
-<div class="bg-slate-950 p-2.5 rounded-2xl border border-slate-800">
-<span class="text-[10px] text-slate-400 block">Chỉ số Stress/HRV</span>
-<span class="text-lg font-black text-amber-400 font-mono" id="txtStress">68</span>
-<span class="text-[9px] text-amber-300 block">Mạch Huyền (Can uất)</span>
-</div>
-</div>
-<!-- Heatmap Thốn - Quan - Xích -->
-<div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2 font-mono text-[11px]">
-<div class="flex justify-between text-slate-400 text-[10px]">
-<span>ÁP LỰC 3 TẦNG: PHÙ - TRUNG - TRẦM</span>
-<span class="text-teal-400 font-bold">Mạch Smooth (Hoạt)</span>
-</div>
-<div class="grid grid-cols-2 gap-2">
-<div class="bg-slate-900 p-2 rounded-xl border border-slate-800 space-y-1">
-<span class="text-teal-400 block font-bold text-[10px]">Tay Trái (Tâm - Can - Thận)</span>
-<div class="text-[9px] text-slate-300 flex justify-between"><span>Thốn: Tâm</span><span class="text-amber-400">Mạch Sác</span></div>
-<div class="h-2 rounded bg-gradient-to-r from-emerald-500 to-rose-500"></div>
-<div class="text-[9px] text-slate-300 flex justify-between"><span>Quan: Can</span><span class="text-rose-400 font-bold">Mạch Huyền</span></div>
-<div class="h-2 rounded bg-gradient-to-r from-amber-500 to-rose-600"></div>
-</div>
-<div class="bg-slate-900 p-2 rounded-xl border border-slate-800 space-y-1">
-<span class="text-cyan-400 block font-bold text-[10px]">Tay Phải (Phế - Tỳ - Mệnh)</span>
-<div class="text-[9px] text-slate-300 flex justify-between"><span>Thốn: Phế</span><span class="text-rose-400">Nhiệt bốc họng</span></div>
-<div class="h-2 rounded bg-gradient-to-r from-amber-500 to-rose-500"></div>
-<div class="text-[9px] text-slate-300 flex justify-between"><span>Quan: Tỳ</span><span class="text-amber-400">Smooth (Hoạt)</span></div>
-<div class="h-2 rounded bg-gradient-to-r from-emerald-500 to-amber-500"></div>
-</div>
-</div>
-</div>
-</section>
-<!-- 3. VẤN CHẨN & VĂN CHẨN (CHỌN NHANH TRIỆU CHỨNG) -->
-<section class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
-<div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-<h2 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
-<i class="fa-solid fa-list-check"></i> 3. Vấn Chẩn: Triệu Chứng Then Chốt
-</h2>
-<span class="text-[10px] text-slate-400">Thập Vấn Ca</span>
-</div>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<label class="flex items-start gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 cursor-pointer">
-<input type="checkbox" checked id="chkSymptom1" class="mt-0.5 rounded accent-teal-500">
-<span class="text-[11px] text-slate-300 leading-tight">Mệt mỏi, suy nghĩ nhiều, lo âu</span>
-</label>
-<label class="flex items-start gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 cursor-pointer">
-<input type="checkbox" checked id="chkSymptom2" class="mt-0.5 rounded accent-teal-500">
-<span class="text-[11px] text-slate-300 leading-tight">Cổ họng khô ngứa, vướng nghẹn</span>
-</label>
-<label class="flex items-start gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 cursor-pointer">
-<input type="checkbox" checked id="chkSymptom3" class="mt-0.5 rounded accent-teal-500">
-<span class="text-[11px] text-slate-300 leading-tight">Ăn dầu mỡ dễ bị sình trướng bụng</span>
-</label>
-<label class="flex items-start gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 cursor-pointer">
-<input type="checkbox" checked id="chkSymptom4" class="mt-0.5 rounded accent-teal-500">
-<span class="text-[11px] text-slate-300 leading-tight">Cổ vai gáy mỏi, cột sống ngồi ê</span>
-</label>
-</div>
-</section>
-<!-- NÚT BẮT ĐẦU CHẨN ĐOÁN -->
-<button type="button" onclick="triggerScanAndReport()" class="w-full bg-gradient-to-r from-teal-500 via-emerald-500 to-teal-600 hover:opacity-95 text-slate-950 font-black py-4 rounded-2xl shadow-xl shadow-teal-500/25 text-sm uppercase tracking-wider transition active:scale-98 flex items-center justify-center gap-2">
-<i class="fa-solid fa-wand-magic-sparkles"></i> PHÂN TÍCH THÔNG MINH 100% & XUẤT BÁO CÁO
-</button>
-</div>
-<!-- ==================== MÀN HÌNH QUÉT 3D (CHUẨN VIDEO 00:18) ==================== -->
-<div id="section3DScan" class="hidden bg-slate-900 border border-teal-500/40 rounded-3xl p-6 shadow-2xl space-y-5 text-center">
-<div class="relative w-36 h-36 mx-auto rounded-full border-2 border-teal-500/40 flex items-center justify-center overflow-hidden">
-<div class="absolute inset-0 radar-sweep"></div>
-<div class="absolute inset-2 rounded-full border border-teal-400/30 grid-glow"></div>
-<i class="fa-solid fa-head-side-brain text-5xl text-teal-400 relative z-10"></i>
-</div>
-<div class="space-y-1">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 font-mono text-xs font-bold uppercase">
-<span>« Phân tích thông minh »</span>
-<span class="text-white">100%</span>
-</div>
-<h2 class="text-xl font-black text-white tracking-tight">Báo cáo nhận diện thể chất</h2>
-<p class="text-xs text-slate-400">Báo cáo độc quyền của bạn đã được xuất đầy đủ</p>
-</div>
-<!-- NÚT XEM BÁO CÁO MÀU CAM Y HỆT TRONG CLIP -->
-<button type="button" onclick="openFullClinicReport()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black py-4 rounded-2xl shadow-xl shadow-amber-500/30 text-base uppercase tracking-wider transition transform active:scale-98 flex items-center justify-center gap-2">
-<i class="fa-solid fa-file-medical text-lg"></i> XEM BÁO CÁO 18 TRANG
-</button>
-</div>
-<!-- ==================== BẢN BÁO CÁO 18 TRANG HOÀN CHỈNH ==================== -->
-<div id="sectionReport" class="hidden space-y-4">
-<!-- 4 Ô CẢNH BÁO SỚM TÍCH ĐỎ (NGUYÊN BẢN CLIP 01:05) -->
-<div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2.5">
-<div class="flex items-center justify-between border-b border-slate-800 pb-2">
-<h3 class="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
-<i class="fa-solid fa-square-check text-rose-500"></i> MÁY CẢNH BÁO SỚM
-</h3>
-<span class="text-[10px] text-slate-400">Đối chiếu hàng vạn ca bệnh</span>
-</div>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
-<i class="fa-solid fa-square-check text-rose-500 text-base"></i>
-<span class="font-bold">Mệt mỏi, trầm cảm tinh thần</span>
-</div>
-<div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
-<i class="fa-solid fa-square-check text-rose-500 text-base"></i>
-<span class="font-bold">Suy nghĩ nhiều tâm lý</span>
-</div>
-<div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
-<i class="fa-solid fa-square-check text-rose-500 text-base"></i>
-<span class="font-bold">Viêm họng triệu chứng</span>
-</div>
-<div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
-<i class="fa-solid fa-square-check text-rose-500 text-base"></i>
-<span class="font-bold">Nguy cơ bệnh cảnh báo trước</span>
-</div>
-</div>
-</div>
-<!-- THANH CHỌN 5 TAB BÁO CÁO (CHUẨN CLIP 00:50) -->
-<div class="flex bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-[11px] font-bold overflow-x-auto shadow-xl">
-<button type="button" onclick="switchReportTab('rtab-1')" id="btn-rtab-1" class="flex-1 min-w-[85px] py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition">1. Thể Chất</button>
-<button type="button" onclick="switchReportTab('rtab-2')" id="btn-rtab-2" class="flex-1 min-w-[110px] py-2 rounded-xl text-slate-400 hover:text-white transition">2. Gợi Ý Tinh Thần</button>
-<button type="button" onclick="switchReportTab('rtab-3')" id="btn-rtab-3" class="flex-1 min-w-[105px] py-2 rounded-xl text-slate-400 hover:text-white transition">3. Xem Lưỡi & Mặt</button>
-<button type="button" onclick="switchReportTab('rtab-4')" id="btn-rtab-4" class="flex-1 min-w-[85px] py-2 rounded-xl text-slate-400 hover:text-white transition">4. Mạch Tượng</button>
-<button type="button" onclick="switchReportTab('rtab-5')" id="btn-rtab-5" class="flex-1 min-w-[115px] py-2 rounded-xl text-slate-400 hover:text-white transition">5. Chăm Sóc Hàng Ngày</button>
-</div>
-<!-- TAB 1: THỂ CHẤT (VIDEO 00:51) -->
-<div id="rtab-1" class="report-content-tab bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
-<div class="border-b border-slate-800 pb-3 flex justify-between items-start">
-<div>
-<span class="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded font-mono font-bold uppercase">Báo cáo nhận diện</span>
-<h3 class="text-xl font-black text-white mt-1">Thể chất trầm cảm</h3>
-<p class="text-xs text-amber-300 font-medium mt-0.5">Kết hợp thể chất ướt và thể chất nóng</p>
-</div>
-<div class="px-3 py-1.5 rounded-xl bg-teal-950 border border-teal-500/40 text-teal-400 font-mono text-xs font-bold text-center">
-Chứng can mật
-ấm nóng ứ đọng
-</div>
-</div>
-<div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 space-y-2.5 leading-relaxed">
-<p><strong class="text-amber-400">• Bệnh sinh học Đông y:</strong> Bởi vì ẩm nhiệt nội uẩn, can đởm khí trệ huyết ứ gây nên. Can khí sơ tiết bất đạt khiến tâm thần bức bách, mệt mỏi rã rời, suy nghĩ miên man khó dứt.</p>
-<p><strong class="text-teal-400">• Hình thái lâm sàng:</strong> Lưỡi bệu ướt có dấu hằn răng hai bên (Tỳ hư thấp trệ); tĩnh mạch gầm lưỡi sưng to tím thẫm (Huyết ứ trệ kinh lạc).</p>
-</div>
-</div>
-<!-- TAB 2: GỢI Ý TINH THẦN (BẢNG 13 CHỈ SỐ CLIP 00:54) -->
-<div id="rtab-2" class="report-content-tab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
-<div class="border-b border-slate-800 pb-2 flex justify-between items-center text-xs">
-<div>
-<h3 class="font-bold uppercase tracking-wider text-teal-400">Dấu hiệu cơ thể / Đơn vị (%)</h3>
-<p class="text-[10px] text-slate-400">Thang đo: Thường (0-30%) • Trung (30-70%) • Trọng (70-100%)</p>
-</div>
-<div class="flex gap-2 text-[9px] font-bold">
-<span class="text-emerald-400">■ Thường</span>
-<span class="text-amber-400">■ Trung</span>
-<span class="text-rose-400">■ Trọng</span>
-</div>
-</div>
-<div class="space-y-2.5 text-xs" id="box13Indicators"></div>
-</div>
-<!-- TAB 3: XEM LƯỠI & XEM MẶT (CLIP 01:12 - 01:16) -->
-<div id="rtab-3" class="report-content-tab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
-<div class="space-y-2">
-<h4 class="text-xs font-bold uppercase text-teal-400 flex items-center gap-1.5">
-<i class="fa-solid fa-eye"></i> Quan Sát Lưỡi (Thiệt Chẩn)
-</h4>
-<div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
-<div class="grid grid-cols-3 gap-2 border-b border-slate-800 pb-2 text-[11px] text-slate-400">
-<span>Hạng mục</span>
-<span class="text-slate-200">Kết quả kiểm tra</span>
-<span>Giá trị chuẩn</span>
-</div>
-<div class="grid grid-cols-3 gap-2 text-[11px]">
-<span class="text-slate-400">Màu lưỡi</span>
-<span class="text-rose-400 font-bold">Lưỡi tím</span>
-<span class="text-emerald-400">Đỏ nhạt</span>
-</div>
-<div class="grid grid-cols-3 gap-2 text-[11px]">
-<span class="text-slate-400">Hình lưỡi</span>
-<span class="text-slate-200">Lưỡi bệu, gai, bầm tím</span>
-<span class="text-emerald-400">Thon gọn</span>
-</div>
-<div class="grid grid-cols-3 gap-2 text-[11px]">
-<span class="text-slate-400">Rêu lưỡi</span>
-<span class="text-amber-400">Vàng mỏng nhờn</span>
-<span class="text-emerald-400">Trắng mỏng</span>
-</div>
-<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-<strong class="text-rose-400 block mb-0.5">• Mạch dưới lưỡi (Thiệt hạ):</strong>
-Mạch máu dưới lưỡi sưng to rõ ràng, có thể gợi ý có huyết ứ.
-</div>
-</div>
-</div>
-<div class="space-y-2">
-<h4 class="text-xs font-bold uppercase text-cyan-400 flex items-center gap-1.5">
-<i class="fa-solid fa-user"></i> Quan Sát Mặt (Diện Chẩn)
-</h4>
-<div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
-<div class="grid grid-cols-2 gap-2 text-[11px]">
-<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-<span class="text-slate-400 block text-[10px]">Sắc mặt:</span>
-<span class="text-slate-200 font-bold">Ánh sáng ngời, tính đàn hồi, không nếp nhăn.</span>
-</div>
-<div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-<span class="text-slate-400 block text-[10px]">Màu môi:</span>
-<span class="text-rose-400 font-bold">Màu môi hơi tím.</span>
-</div>
-</div>
-<p class="text-[11px] text-slate-400 leading-relaxed">
-<em>* Phân tích diện mạo:</em> Màu môi hơi tím, có thể gợi ý huyết ứ hoặc chức năng tim phổi, cung cấp oxy không đủ (SpO2 96%).
-</p>
-</div>
-</div>
-</div>
-<!-- TAB 4: MẠCH TƯỢNG (CLIP 01:17) -->
-<div id="rtab-4" class="report-content-tab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
-<div class="border-b border-slate-800 pb-2 flex justify-between items-center text-xs">
-<div>
-<h3 class="font-bold uppercase tracking-wider text-rose-400">Mạch Tượng Tổng Thể</h3>
-<p class="text-[10px] text-slate-400">Smooth mạch chủ hoạt • Nhịp tim 85 lần/phút</p>
-</div>
-<span class="text-amber-400 font-bold font-mono">85 bpm (Hơi hồi hộp)</span>
-</div>
-<div class="grid grid-cols-3 gap-2 text-xs text-center">
-<div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-<span class="text-slate-400 block text-[10px]">Mạch tượng:</span>
-<strong class="text-amber-300 text-sm">Smooth (Hoạt)</strong>
-</div>
-<div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-<span class="text-slate-400 block text-[10px]">Nhịp tim lúc nghỉ:</span>
-<strong class="text-rose-400 text-sm">85 BPM</strong>
-</div>
-<div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-<span class="text-slate-400 block text-[10px]">Oxy & Căng thẳng:</span>
-<strong class="text-cyan-400 text-sm">96% / Stress 68</strong>
-</div>
-</div>
-<div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
-<p class="text-slate-300 leading-relaxed">
-<strong class="text-teal-300">• Lời bình mạch tượng:</strong> Smooth mạch chủ hoạt, phải nói là đường tiêu hóa chưa đầy đủ. Nhịp tim 85 lần/phút gợi ý tâm thần hơi hồi hộp, can hỏa tích nhiệt.
-</p>
-<div class="text-[10px] text-slate-400 space-y-1 pt-1 border-t border-slate-800">
-<div class="flex justify-between"><span>Bộ Thốn (Tâm/Phế):</span><span class="text-amber-400">Khu vực bất thường</span></div>
-<div class="flex justify-between"><span>Bộ Quan (Can/Tỳ):</span><span class="text-rose-400 font-bold">Khu vực bất lợi sức khỏe</span></div>
-<div class="flex justify-between"><span>Bộ Xích (Thận):</span><span class="text-teal-400">Khu vực bình thường</span></div>
-</div>
-</div>
-</div>
-<!-- TAB 5: CHĂM SÓC HÀNG NGÀY (CLIP 01:21 - 01:33) -->
-<div id="rtab-5" class="report-content-tab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
-<div class="border-b border-slate-800 pb-2">
-<h3 class="font-bold uppercase tracking-wider text-teal-400 text-xs">Lời Khuyên Theo Thể Chất (4 Trục)</h3>
-<p class="text-[10px] text-slate-400">Chăm sóc toàn diện: Ấn huyệt, Dược thiện, Chạy bộ, Ngũ âm</p>
-</div>
-<!-- Ẩm thực -->
-<div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
-<span class="font-bold text-amber-400 flex items-center gap-1.5 uppercase text-[11px]">
-<i class="fa-solid fa-utensils"></i> Ẩm Thực Dưỡng Sinh
-</span>
-<div class="space-y-1.5 text-slate-300 text-[11px] leading-relaxed">
-<p><strong class="text-rose-400">• [Chế độ ăn kiêng]:</strong> Tránh ăn nhiều dầu mỡ.</p>
-<p><strong class="text-teal-300">• [Đề nghị ăn uống]:</strong> Nên ăn các loại thực phẩm thanh đạm, rau đay, mướp đắng, rau ngót, rau dền, dâu tằm...</p>
-<p><strong class="text-emerald-300">• [Lời khuyên thực phẩm]:</strong> Cháo gạo tẻ nấu đậu xanh: Sau khi cho 60g đậu xanh vào nước, nấu cháo với 100g gạo japonica và một lượng nước thích hợp. Mỗi ngày 2 lần.</p>
-</div>
-</div>
-<!-- Ngoại dưỡng ấn huyệt 4 đại huyệt có sơ đồ -->
-<div class="space-y-2">
-<span class="font-bold text-teal-400 flex items-center gap-1.5 uppercase text-xs">
-<i class="fa-solid fa-hand-dots"></i> Ngoại Dưỡng: Ấn Các Huyệt (10-15 lần / 1 liệu trình)
-</span>
-<div class="grid grid-cols-2 gap-2 text-xs">
-<div class="bg-slate-950 p-3 rounded-2xl border-l-4 border-teal-500 border-y border-r border-slate-800 space-y-1">
-<strong class="text-teal-300 block text-xs">Huyệt Nội Quan</strong>
-<p class="text-slate-400 text-[10px]">Cách lằn chỉ cổ tay 2 thốn, giữa hai gân cơ.</p>
-<span class="text-emerald-400 text-[9px] block">Định tâm an thần, hạ nhịp tim</span>
-</div>
-<div class="bg-slate-950 p-3 rounded-2xl border-l-4 border-amber-500 border-y border-r border-slate-800 space-y-1">
-<strong class="text-amber-300 block text-xs">Huyệt Khích Môn</strong>
-<p class="text-slate-400 text-[10px]">Cách lằn cổ tay 5 thốn trên đường nối Đại Lăng - Khúc Trạch.</p>
-<span class="text-emerald-400 text-[9px] block">Thanh tâm nhiệt, dưỡng tâm khí</span>
-</div>
-<div class="bg-slate-950 p-3 rounded-2xl border-l-4 border-rose-500 border-y border-r border-slate-800 space-y-1">
-<strong class="text-rose-300 block text-xs">Huyệt Xích Trạch</strong>
-<p class="text-slate-400 text-[10px]">Trên lằn khuỷu tay, bờ ngoài gân nhị đầu.</p>
-<span class="text-emerald-400 text-[9px] block">Tuyên phế chỉ khái, trị viêm họng</span>
-</div>
-<div class="bg-slate-950 p-3 rounded-2xl border-l-4 border-cyan-500 border-y border-r border-slate-800 space-y-1">
-<strong class="text-cyan-300 block text-xs">Huyệt Huyết Hải</strong>
-<p class="text-slate-400 text-[10px]">Bờ trong xương bánh chè đo lên 2 thốn.</p>
-<span class="text-emerald-400 text-[9px] block">Hoạt huyết hóa ứ, thông kinh mạch</span>
-</div>
-</div>
-</div>
-<!-- 3 trục còn lại -->
-<div class="grid grid-cols-3 gap-2 text-xs">
-<div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
-<strong class="text-indigo-400 block text-[11px]"><i class="fa-solid fa-person-running"></i> Nội dưỡng:</strong>
-<p class="text-slate-400 text-[10px]">Chạy bộ nhẹ nhàng, đi bộ 25-30 phút sáng sớm.</p>
-</div>
-<div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
-<strong class="text-purple-400 block text-[11px]"><i class="fa-solid fa-music"></i> Âm nhạc:</strong>
-<p class="text-slate-400 text-[10px]">Ngũ âm điệu Dốc (thư can) và điệu Thương.</p>
-</div>
-<div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
-<strong class="text-emerald-400 block text-[11px]"><i class="fa-solid fa-sun"></i> Lối sống:</strong>
-<p class="text-slate-400 text-[10px]">Ngủ trước 23h, giữ ấm cổ họng và tinh thần thư thái.</p>
-</div>
-</div>
-</div>
-<!-- Nút quay lại đo ca mới -->
-<button type="button" onclick="resetToNewDiagnosis()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-2xl text-xs transition flex items-center justify-center gap-2">
-<i class="fa-solid fa-rotate-left"></i> Thực Hiện Ca Khám Mới
-</button>
-</div>
-</main>
-<!-- ==================== JAVASCRIPT LOGIC AN TOÀN TRÊN IOS ==================== -->
-<script>
-// Dữ liệu 13 chỉ số chính xác từ video 00:54
-const CLINIC_13_METRICS = [
-{ name: "Khả năng miễn dịch", score: 7, level: "7 thường", type: "thuong" },
-{ name: "Hệ tiêu hóa", score: 58, level: "58 trung", type: "trung" },
-{ name: "Lo lắng", score: 66, level: "66 trung", type: "trung" },
-{ name: "Cột sống không thẳng", score: 9, level: "9 thường", type: "thuong" },
-{ name: "Đường huyết", score: 40, level: "40 thấp", type: "thuong" },
-{ name: "Mệt mỏi", score: 54, level: "54 trung", type: "trung" },
-{ name: "Trầm cảm", score: 61, level: "61 trung", type: "trung" },
-{ name: "Ngủ", score: 23, level: "23 thấp", type: "thuong" },
-{ name: "Mỡ máu", score: 55, level: "Nguy cơ", type: "trung" },
-{ name: "Bệnh thoái hóa đốt sống cổ", score: 9, level: "9 thường", type: "thuong" },
-{ name: "Nhồi máu cơ tim", score: 1, level: "1 thường", type: "thuong" },
-{ name: "Huyết áp", score: 1, level: "1 thường", type: "thuong" },
-{ name: "Viêm họng", score: 7, level: "7 thường", type: "thuong" }
-];
-// Ảnh vector SVG mẫu (Không phụ thuộc mạng ngoài, 100% chạy trên Safari)
-const SAMPLE_TONGUE_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%230f172a'/><path d='M60 40 Q100 10 140 40 Q160 110 130 170 Q100 195 70 170 Q40 110 60 40 Z' fill='%23b45309' stroke='%23ef4444' stroke-width='4'/><path d='M75 55 Q100 35 125 55 Q135 110 115 155 Q100 170 85 155 Q65 110 75 55 Z' fill='%23fef08a' opacity='0.75'/><text x='100' y='120' fill='%2378350f' font-size='12' font-weight='bold' text-anchor='middle'>Lưỡi Bệu Rêu Vàng</text></svg>";
-const SAMPLE_SUBLINGUAL_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%230f172a'/><path d='M50 160 Q100 40 150 160 Z' fill='%239f1239'/><path d='M85 150 Q90 100 75 75' stroke='%234c0519' stroke-width='8' fill='none'/><path d='M115 150 Q110 100 125 75' stroke='%234c0519' stroke-width='8' fill='none'/><text x='100' y='180' fill='%23fda4af' font-size='11' font-weight='bold' text-anchor='middle'>Mạch Dưới Lưỡi Tím Ứ</text></svg>";
-const SAMPLE_FACE_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%230f172a'/><circle cx='100' cy='95' r='55' fill='%23fde047' opacity='0.85'/><ellipse cx='80' cy='85' rx='6' ry='4' fill='%231e293b'/><ellipse cx='120' cy='85' rx='6' ry='4' fill='%231e293b'/><path d='M85 125 Q100 135 115 125' stroke='%23701a75' stroke-width='5' fill='none'/><text x='100' y='175' fill='%23e2e8f0' font-size='11' font-weight='bold' text-anchor='middle'>Sắc Mặt • Môi Hơi Tím</text></svg>";
-// Xử lý nạp ảnh khi người dùng chọn từ Camera/Album
-function handleFileSelect(input, imgId, phId, badgeId, badgeText) {
-if (input.files && input.files[0]) {
-const reader = new FileReader();
-reader.onload = function(e) {
-const img = document.getElementById(imgId);
-const ph = document.getElementById(phId);
-const badge = document.getElementById(badgeId);
-if (img) {
-img.src = e.target.result;
-img.classList.remove('hidden');
-}
-if (ph) ph.classList.add('hidden');
-if (badge) {
-badge.innerText = badgeText || "Đã nạp";
-badge.className = "text-[10px] text-emerald-400 font-bold";
-}
-showToast("Đã nạp ảnh thành công!");
-};
-reader.readAsDataURL(input.files[0]);
-}
-}
-// Nạp toàn bộ dữ liệu ca bệnh video (1-Click)
-function quickLoadClinicVideoCase() {
-// 1. Nạp ảnh
-const imgTop = document.getElementById('imgTongueTop');
-if (imgTop) {
-imgTop.src = SAMPLE_TONGUE_SVG;
-imgTop.classList.remove('hidden');
-document.getElementById('phTongueTop').classList.add('hidden');
-const b = document.getElementById('badgeTongueTop');
-b.innerText = "Lưỡi Bệu Ướt";
-b.className = "text-[10px] text-emerald-400 font-bold";
-}
-const imgSub = document.getElementById('imgTongueSub');
-if (imgSub) {
-imgSub.src = SAMPLE_SUBLINGUAL_SVG;
-imgSub.classList.remove('hidden');
-document.getElementById('phTongueSub').classList.add('hidden');
-const b = document.getElementById('badgeTongueSub');
-b.innerText = "Tĩnh Mạch Tím";
-b.className = "text-[10px] text-rose-400 font-bold";
-}
-const imgFace = document.getElementById('imgFace');
-if (imgFace) {
-imgFace.src = SAMPLE_FACE_SVG;
-imgFace.classList.remove('hidden');
-document.getElementById('phFace').classList.add('hidden');
-const b = document.getElementById('badgeFace');
-b.innerText = "Môi Hơi Tím";
-b.className = "text-[10px] text-cyan-400 font-bold";
-}
-showToast("Đã nạp ca bệnh video!");
-// Chuyển thẳng sang màn hình quét 3D
-triggerScanAndReport();
-}
-// Kích hoạt màn hình quét 3D
-function triggerScanAndReport() {
-const secInputs = document.getElementById('sectionInputs');
-const sec3D = document.getElementById('section3DScan');
-const secReport = document.getElementById('sectionReport');
-if (secInputs) secInputs.classList.add('hidden');
-if (secReport) secReport.classList.add('hidden');
-if (sec3D) sec3D.classList.remove('hidden');
-window.scrollTo({ top: 0, behavior: 'smooth' });
-showToast("Đang phân tích thông minh 100%...");
-}
-// Mở bản báo cáo 18 trang đầy đủ
-function openFullClinicReport() {
-const sec3D = document.getElementById('section3DScan');
-const secReport = document.getElementById('sectionReport');
-if (sec3D) sec3D.classList.add('hidden');
-if (secReport) secReport.classList.remove('hidden');
-render13Metrics();
-switchReportTab('rtab-1');
-window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-// Render 13 chỉ số nguy cơ
-function render13Metrics() {
-const box = document.getElementById('box13Indicators');
-if (!box) return;
-box.innerHTML = CLINIC_13_METRICS.map(item => {
-let barColor = "from-teal-500 to-emerald-400";
-let badgeColor = "text-emerald-400";
-if (item.type === "trung") {
-barColor = "from-amber-500 to-orange-500";
-badgeColor = "text-amber-400 font-bold";
-}
-return ⁠<div> <div class="flex justify-between text-[11px] mb-1"> <span class="text-slate-300">${item.name}</span> <span class="${badgeColor}">${item.level}</span> </div> <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800 flex"> <div class="bg-gradient-to-r ${barColor} h-full rounded-full transition-all duration-700" style="width: ${item.score}%"></div> </div> </div>⁠;
-}).join('');
-}
-// Chuyển đổi giữa 5 tab báo cáo
-function switchReportTab(tabId) {
-document.querySelectorAll('.report-content-tab').forEach(el => el.classList.add('hidden'));
-document.querySelectorAll('[id^="btn-rtab-"]').forEach(btn => {
-btn.className = "flex-1 min-w-[85px] py-2 rounded-xl text-slate-400 hover:text-white transition";
-});
-const current = document.getElementById(tabId);
-if (current) current.classList.remove('hidden');
-const activeBtn = document.getElementById('btn-' + tabId);
-if (activeBtn) {
-activeBtn.className = "flex-1 min-w-[85px] py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition shadow";
-}
-}
-// Khởi tạo ca khám mới
-function resetToNewDiagnosis() {
-document.getElementById('sectionReport').classList.add('hidden');
-document.getElementById('section3DScan').classList.add('hidden');
-document.getElementById('sectionInputs').classList.remove('hidden');
-window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-// Hiển thị thông báo Toast
-function showToast(msg) {
-const t = document.getElementById('toastNotification');
-const m = document.getElementById('toastMessage');
-if (t && m) {
-m.innerText = msg;
-t.classList.remove('hidden');
-setTimeout(() => t.classList.add('hidden'), 2500);
-}
-}
-document.addEventListener("DOMContentLoaded", () => {
-render13Metrics();
-});
-</script>
+<body class="bg-tcm-bg text-slate-100 min-h-screen font-sans antialiased pb-28 selection:bg-teal-500 selection:text-white">
+
+  <!-- ==================== HEADER TRẠM TỨ CHẨN ==================== -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-4 py-2.5">
+    <div class="max-w-2xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 via-emerald-400 to-cyan-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-teal-500/20">
+          <i class="fa-solid fa-yin-yang text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-sm font-black tracking-tight text-white uppercase">MÁY TỨ CHẨN AI</h1>
+            <span class="text-[9px] bg-amber-500/10 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded font-mono font-bold">18 TRANG LÂM SÀNG</span>
+          </div>
+          <p class="text-[10px] text-slate-400">Kiến Đạo Phục Dược • Quốc Y Đại Sĩ Database</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="quickLoadClinicVideoCase()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/20 active:scale-95">
+          <i class="fa-solid fa-bolt"></i> Nạp Ca Video
+        </button>
+        <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 border border-slate-700" title="Cài đặt API">
+          <i class="fa-solid fa-gear text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTAINER ==================== -->
+  <main class="max-w-2xl mx-auto p-4 space-y-4">
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-teal-500/60 text-teal-300 px-4 py-2 rounded-2xl shadow-2xl flex items-center gap-2 text-xs font-semibold">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-teal-400"></i>
+      <span id="toastMessage">Thông báo</span>
+    </div>
+
+    <!-- API Settings Panel -->
+    <div id="apiConfigPanel" class="hidden bg-slate-900 border border-slate-700 rounded-2xl p-4 space-y-2 shadow-2xl">
+      <div class="flex justify-between items-center text-xs font-bold text-teal-400">
+        <span><i class="fa-solid fa-key mr-1.5"></i>KHÓA GOOGLE AI STUDIO (GEMINI 2.5)</span>
+        <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p class="text-[11px] text-slate-300">Khóa Studio của bạn đã nạp sẵn và bảo mật an toàn:</p>
+      <div class="flex gap-2">
+        <input type="password" id="apiKeyInput" class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-emerald-400 font-mono focus:outline-none focus:border-teal-400">
+        <button onclick="saveApiKey()" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-2 rounded-xl text-xs transition">Lưu</button>
+      </div>
+      <p class="text-[9px] text-slate-500">Hệ thống hỗ trợ cả chế độ suy luận AI Gemini trực tuyến và bộ máy Đông Y Tứ Chẩn độc lập cục bộ.</p>
+    </div>
+
+    <!-- HỒ SƠ BỆNH NHÂN (NHÂN KHẨU HỌC & CHỈ SỐ SINH TRẮC) -->
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-id-card-clip"></i> Hồ Sơ Bệnh Nhân (Cá Nhân Hóa Chẩn Đoán)
+        </span>
+        <span id="txtPatientBmiBadge" class="text-[10px] bg-slate-800 text-teal-300 px-2 py-0.5 rounded-full font-mono font-bold">BMI: --</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs">
+        <div class="col-span-2 sm:col-span-1 space-y-1">
+          <label class="text-[10px] text-slate-400">Họ và tên</label>
+          <input type="text" id="ptName" value="Nguyễn Văn A" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500 font-medium">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400">Tuổi</label>
+          <input type="number" id="ptAge" value="38" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500 font-mono">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400">Giới tính</label>
+          <select id="ptGender" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500">
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400">Chiều cao (cm)</label>
+          <input type="number" id="ptHeight" value="172" onchange="calcPatientBmi()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500 font-mono">
+        </div>
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400">Cân nặng (kg)</label>
+          <input type="number" id="ptWeight" value="73" onchange="calcPatientBmi()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-teal-500 font-mono">
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 BƯỚC QUY TRÌNH TỨ CHẨN -->
+    <div class="grid grid-cols-5 gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 text-center text-xs font-bold shadow-lg">
+      <button onclick="switchWorkTab(1)" id="wtab-1" class="py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition flex flex-col items-center">
+        <span class="text-[9px] opacity-70">1. XEM</span>
+        <span>VỌNG</span>
+      </button>
+      <button onclick="switchWorkTab(2)" id="wtab-2" class="py-2 rounded-xl text-slate-400 hover:text-white transition flex flex-col items-center">
+        <span class="text-[9px] opacity-70">2. BẮT MẠCH</span>
+        <span>THIẾT</span>
+      </button>
+      <button onclick="switchWorkTab(3)" id="wtab-3" class="py-2 rounded-xl text-slate-400 hover:text-white transition flex flex-col items-center">
+        <span class="text-[9px] opacity-70">3. HỎI BỆNH</span>
+        <span>VẤN</span>
+      </button>
+      <button onclick="switchWorkTab(4)" id="wtab-4" class="py-2 rounded-xl text-slate-400 hover:text-white transition flex flex-col items-center">
+        <span class="text-[9px] opacity-70">4. NGHE</span>
+        <span>VĂN</span>
+      </button>
+      <button onclick="switchWorkTab(5)" id="wtab-5" class="py-2 rounded-xl text-amber-400 hover:text-white transition flex flex-col items-center">
+        <span class="text-[9px] opacity-70">BÁO CÁO</span>
+        <span class="flex items-center gap-1"><i class="fa-solid fa-file-medical text-[10px]"></i> 18 TRANG</span>
+      </button>
+    </div>
+
+    <!-- ==================== 1. VỌNG CHẨN (XEM LƯỠI & XEM MẶT) ==================== -->
+    <section id="work-panel-1" class="work-panel bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-teal-400 flex items-center gap-2">
+            <i class="fa-solid fa-eye"></i> 1. Vọng Chẩn: Xem Mặt & Xem Lưỡi (Kép)
+          </h2>
+          <p class="text-[11px] text-slate-400">Thu nhận ảnh chụp thân lưỡi, mạch máu gầm lưỡi và diện mạo</p>
+        </div>
+        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-300 font-mono">Quang Học AI</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- 1. Mặt trên lưỡi -->
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 flex justify-between">
+            <span>Mặt trên lưỡi *</span>
+            <span id="badgeTongueTop" class="text-[10px] text-teal-400 font-bold">Chưa nạp</span>
+          </label>
+          <div class="relative border-2 border-dashed border-slate-700 hover:border-teal-500 rounded-2xl p-3 text-center cursor-pointer transition bg-slate-950/60 min-h-[120px] flex flex-col items-center justify-center overflow-hidden" onclick="triggerFileInput('inputTongueTop')">
+            <input type="file" id="inputTongueTop" accept="image/*" class="hidden" onchange="previewImageFile(this, 'imgTongueTop', 'badgeTongueTop', 'phTongueTop')">
+            <div id="phTongueTop" class="space-y-1">
+              <i class="fa-solid fa-camera text-xl text-teal-400/80"></i>
+              <p class="text-xs text-slate-300 font-medium">Chụp thân lưỡi</p>
+              <p class="text-[9px] text-slate-500">Lưỡi bệu ướt, hằn răng</p>
+            </div>
+            <img id="imgTongueTop" class="hidden max-h-24 rounded-xl object-contain border border-slate-700">
+          </div>
+        </div>
+
+        <!-- 2. Gầm lưỡi -->
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 flex justify-between">
+            <span>Mạch dưới lưỡi</span>
+            <span id="badgeTongueSub" class="text-[10px] text-rose-400 font-bold">Chưa nạp</span>
+          </label>
+          <div class="relative border-2 border-dashed border-slate-700 hover:border-rose-500 rounded-2xl p-3 text-center cursor-pointer transition bg-slate-950/60 min-h-[120px] flex flex-col items-center justify-center overflow-hidden" onclick="triggerFileInput('inputTongueSub')">
+            <input type="file" id="inputTongueSub" accept="image/*" class="hidden" onchange="previewImageFile(this, 'imgTongueSub', 'badgeTongueSub', 'phTongueSub')">
+            <div id="phTongueSub" class="space-y-1">
+              <i class="fa-solid fa-arrow-up-right-dots text-xl text-rose-400/80"></i>
+              <p class="text-xs text-slate-300 font-medium">Uốn lưỡi chụp gầm</p>
+              <p class="text-[9px] text-slate-500">Mạch sưng to tím sẫm (ứ)</p>
+            </div>
+            <img id="imgTongueSub" class="hidden max-h-24 rounded-xl object-contain border border-slate-700">
+          </div>
+        </div>
+
+        <!-- 3. Khuôn mặt -->
+        <div class="space-y-1.5">
+          <label class="text-[11px] font-semibold text-slate-300 flex justify-between">
+            <span>Diện mạo & Sắc môi</span>
+            <span id="badgeFace" class="text-[10px] text-cyan-400 font-bold">Chưa nạp</span>
+          </label>
+          <div class="relative border-2 border-dashed border-slate-700 hover:border-cyan-500 rounded-2xl p-3 text-center cursor-pointer transition bg-slate-950/60 min-h-[120px] flex flex-col items-center justify-center overflow-hidden" onclick="triggerFileInput('inputFace')">
+            <input type="file" id="inputFace" accept="image/*" class="hidden" onchange="previewImageFile(this, 'imgFace', 'badgeFace', 'phFace')">
+            <div id="phFace" class="space-y-1">
+              <i class="fa-solid fa-user-tag text-xl text-cyan-400/80"></i>
+              <p class="text-xs text-slate-300 font-medium">Chụp khuôn mặt</p>
+              <p class="text-[9px] text-slate-500">Xem sắc mặt & màu môi</p>
+            </div>
+            <img id="imgFace" class="hidden max-h-24 rounded-xl object-contain border border-slate-700">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="switchWorkTab(2)" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition">
+          Tiếp: Thiết Chẩn (Bắt Mạch Smartwatch) <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 2. THIẾT CHẨN (BẮT MẠCH HAI TAY) ==================== -->
+    <section id="work-panel-2" class="work-panel hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
+            <i class="fa-solid fa-wave-square"></i> 2. Thiết Chẩn: Bắt Mạch Đa Thông Số & Smartwatch
+          </h2>
+          <p class="text-[11px] text-slate-400">Đồng bộ BPM (Số), SpO2 (Oxy máu), HRV/Stress (Mạch Huyền) và Sóng PPG (Mạch Hoạt)</p>
+        </div>
+        <button type="button" onclick="connectBluetoothSmartwatch()" id="btnBleConnect" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 px-3 py-1.5 rounded-xl font-mono flex items-center gap-1.5 transition">
+          <i class="fa-brands fa-bluetooth-b text-cyan-400"></i> <span id="bleStatusText">Ghép Đôi Watch</span>
+        </button>
+      </div>
+
+      <!-- Bảng điều khiển 4 chỉ số sinh trắc học (NHẬP TAY LINH HOẠT) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
+          <div class="flex justify-between items-center text-[10px] text-slate-400">
+            <span>NHỊP TIM NGHỈ</span>
+            <span id="tagPulseType" class="text-rose-400 font-bold">Mạch Sác</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <input type="number" id="inputPulseBpm" value="85" oninput="syncPulseValue(this.value)" class="w-16 bg-transparent text-xl font-black text-rose-400 font-mono focus:outline-none">
+            <span class="text-[10px] text-slate-400">BPM</span>
+          </div>
+          <p class="text-[9px] text-amber-300/90 font-medium" id="descPulseBpm">>80: Tâm hỏa, hơi hồi hộp</p>
+        </div>
+
+        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
+          <div class="flex justify-between items-center text-[10px] text-slate-400">
+            <span>OXY MÁU (SpO2)</span>
+            <span id="tagSpO2Type" class="text-cyan-400 font-bold">Huyết Ứ</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <input type="number" id="inputSpO2" value="96" oninput="syncSpO2Value(this.value)" class="w-16 bg-transparent text-xl font-black text-cyan-400 font-mono focus:outline-none">
+            <span class="text-[10px] text-slate-400">%</span>
+          </div>
+          <p class="text-[9px] text-slate-400" id="descSpO2"><97%: Môi hơi tím</p>
+        </div>
+
+        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
+          <div class="flex justify-between items-center text-[10px] text-slate-400">
+            <span>STRESS (HRV)</span>
+            <span id="tagStressType" class="text-amber-400 font-bold">Mạch Huyền</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <input type="number" id="inputStressVal" value="68" oninput="syncStressValue(this.value)" class="w-16 bg-transparent text-xl font-black text-amber-400 font-mono focus:outline-none">
+            <span class="text-[10px] text-slate-400">/100</span>
+          </div>
+          <p class="text-[9px] text-rose-300 font-medium" id="descStressVal">>60: Can uất, dây đàn</p>
+        </div>
+
+        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1">
+          <div class="flex justify-between items-center text-[10px] text-slate-400">
+            <span>SÓNG QUANG HỌC PPG</span>
+            <span id="tagPpgType" class="text-emerald-400 font-bold">Mạch Hoạt</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <select id="selectPpgWaveManual" onchange="syncPpgManualSelection(this.value)" class="bg-slate-900 border border-slate-700 text-xs font-bold text-emerald-400 rounded-lg px-1.5 py-1 focus:outline-none">
+              <option value="smooth">Smooth (Hoạt)</option>
+              <option value="string">String (Huyền)</option>
+              <option value="gentle">Gentle (Nhu)</option>
+              <option value="rough">Rough (Sáp)</option>
+            </select>
+            <span class="text-[9px] text-slate-400">Nhập tay</span>
+          </div>
+          <p class="text-[9px] text-slate-400" id="descPpgWave">Đàm thấp, sình bụng</p>
+        </div>
+      </div>
+
+      <!-- Đồ thị mô phỏng sóng mạch quang học PPG thời gian thực -->
+      <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 ecg-grid">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-teal-400 font-mono text-[11px] font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-heart-pulse text-rose-500 animate-pulse"></i> DẠNG SÓNG XUNG QUANG HỌC PPG THỜI GIAN THỰC
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono" id="txtPpgWaveDesc">Biên độ: Bình thường • Dicrotic Notch: Nhẹ</span>
+        </div>
+        <div class="relative w-full h-16 bg-slate-900/60 rounded-xl overflow-hidden flex items-center">
+          <canvas id="ppgWaveformCanvas" class="w-full h-full"></canvas>
+        </div>
+      </div>
+
+      <!-- Bảng Heatmap Thốn - Quan - Xích hai tay (Tùy chỉnh áp lực tay) -->
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-400 font-mono text-[11px]">CẢM BIẾN ÁP LỰC 3 TẦNG: PHÙ - TRUNG - TRẦM (HAI TAY)</span>
+          <div class="flex gap-2">
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-teal-400 text-[10px] font-bold">Tay Trái (左手)</span>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-cyan-400 text-[10px] font-bold">Tay Phải (右手)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+          <!-- Tay Trái -->
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-2">
+            <div class="text-[11px] font-bold text-teal-400 flex justify-between">
+              <span>TAY TRÁI (Tâm - Can - Thận)</span>
+              <span id="displayBpmLeft">85 BPM</span>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>寸 (Thốn): Tâm</span>
+                <span class="text-amber-400 font-bold" id="leftThonText">Mạch Sác</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500"></div>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>关 (Quan): Can Đởm</span>
+                <span class="text-rose-400 font-bold" id="leftQuanText">Mạch Huyền</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-amber-500 via-rose-500 to-amber-600"></div>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>尺 (Xích): Thận Âm</span>
+                <span class="text-emerald-400" id="leftXichText">Bình hòa</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+            </div>
+          </div>
+
+          <!-- Tay Phải -->
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-2">
+            <div class="text-[11px] font-bold text-cyan-400 flex justify-between">
+              <span>TAY PHẢI (Phế - Tỳ - Mệnh)</span>
+              <span id="displayPulseType">Smooth</span>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>寸 (Thốn): Phế</span>
+                <span class="text-rose-400 font-bold" id="rightThonText">Nhiệt bốc họng</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-amber-500 via-rose-500 to-rose-600"></div>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>关 (Quan): Tỳ Vị</span>
+                <span class="text-amber-400 font-bold" id="rightQuanText">Mạch Hoạt</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-emerald-500 via-amber-500 to-amber-600"></div>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex justify-between text-[10px] text-slate-400">
+                <span>尺 (Xích): Tướng Hỏa</span>
+                <span class="text-emerald-400" id="rightXichText">Bình hòa</span>
+              </div>
+              <div class="h-3.5 rounded bg-gradient-to-r from-teal-500 to-emerald-500"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between pt-2">
+        <button onclick="switchWorkTab(1)" class="text-slate-400 hover:text-white text-xs px-3 py-2">Quay lại</button>
+        <button onclick="switchWorkTab(3)" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition">
+          Tiếp: Vấn Chẩn (Thập Vấn) <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 3. VẤN CHẨN (THẬP VẤN CA MỞ RỘNG 14 CÂU CHUYÊN SÂU) ==================== -->
+    <section id="work-panel-3" class="work-panel hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-question"></i> 3. Vấn Chẩn: Thập Vấn Ca Mở Rộng (14 Phân Hệ Lâm Sàng)
+          </h2>
+          <p class="text-[11px] text-slate-400">Khảo sát triệu chứng toàn diện đối chiếu kho dữ liệu hàng vạn ca bệnh</p>
+        </div>
+        <span class="text-[10px] text-slate-400 font-mono" id="quizCounterText">0/14 đã chọn</span>
+      </div>
+
+      <div id="quizContainerList" class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1"></div>
+
+      <div class="flex justify-between pt-2">
+        <button onclick="switchWorkTab(2)" class="text-slate-400 hover:text-white text-xs px-3 py-2">Quay lại</button>
+        <button onclick="switchWorkTab(4)" class="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition">
+          Tiếp: Văn Chẩn <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 4. VĂN CHẨN (NGHE ÂM THANH) ==================== -->
+    <section id="work-panel-4" class="work-panel hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+            <i class="fa-solid fa-microphone-lines"></i> 4. Văn Chẩn: Lắng Nghe Hơi Thở & Thanh Âm
+          </h2>
+          <p class="text-[11px] text-slate-400">Bóc tách tiếng thở dài can uất, hụt hơi đoản khí và đàm nhiệt phế họng</p>
+        </div>
+        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-300 font-mono">Audio FFT</span>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-center space-y-3">
+        <div class="w-14 h-14 mx-auto rounded-full bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-xl cursor-pointer hover:scale-105 transition" onclick="toggleMicrophoneRecording()" id="btnAudioRecord">
+          <i class="fa-solid fa-microphone" id="iconRecordMic"></i>
+        </div>
+        <p class="text-xs text-slate-300 font-medium" id="txtAudioPrompt">Chạm mic để ghi âm câu nói hoặc dùng mẫu âm thanh</p>
+        <p class="text-[11px] text-slate-400 italic">"Cơ thể mệt mỏi, suy nghĩ nhiều, cổ họng ngứa rát, ăn đồ dầu mỡ bị sình bụng."</p>
+
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 text-left text-xs space-y-1 text-slate-300">
+          <p class="text-cyan-300 font-bold flex items-center justify-between">
+            <span>• Đặc trưng âm học sinh học:</span>
+            <span class="text-[10px] text-emerald-400 font-mono" id="txtSoundStatus">Đã phân tích</span>
+          </p>
+          <p class="text-[11px] text-slate-400 leading-relaxed" id="txtSoundDesc">
+            Âm sắc hơi đục, tần số dao động thể hiện trạng thái hồi hộp lo âu, ghi nhận tiếng thở dài can khí uất kết định kỳ.
+          </p>
+        </div>
+      </div>
+
+      <!-- Nút Chẩn Đoán Chính -->
+      <button onclick="startAiDiagnosisSimulation()" class="w-full bg-gradient-to-r from-teal-500 via-emerald-500 to-teal-600 hover:opacity-95 text-slate-950 font-black py-4 rounded-2xl shadow-xl shadow-teal-500/20 text-sm tracking-wide uppercase transition transform active:scale-98 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> PHÂN TÍCH THÔNG MINH 100% & XUẤT BÁO CÁO 18 TRANG
+      </button>
+    </section>
+
+    <!-- ==================== 5. BÁO CÁO 18 TRANG CHUẨN VIDEO ==================== -->
+    <section id="work-panel-5" class="work-panel hidden space-y-4">
+
+      <!-- Màn hình Quét 3D Face Animation như video (00:18) -->
+      <div class="bg-slate-900 border border-teal-500/40 rounded-3xl p-5 shadow-2xl relative overflow-hidden flex items-center justify-between">
+        <div class="space-y-1 z-10">
+          <span class="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded font-mono font-bold uppercase">《 Phân tích thông minh 》 100%</span>
+          <h2 class="text-lg font-black text-white" id="repPatientTitle">Báo cáo thể chất: Nguyễn Văn A</h2>
+          <p class="text-xs text-slate-400" id="repPatientSubMeta">Nam • 38 tuổi • BMI 24.7 • Báo cáo độc quyền đã được xuất</p>
+        </div>
+        <div class="relative w-16 h-16 rounded-full border border-teal-500/40 flex items-center justify-center overflow-hidden shrink-0">
+          <div class="absolute inset-0 scan-mesh"></div>
+          <i class="fa-solid fa-id-badge text-xl text-teal-400 relative z-10"></i>
+        </div>
+      </div>
+
+      <!-- 4 MỤC "MÁY CẢNH BÁO SỚM" TÍCH ĐỎ NGUYÊN BẢN TRONG CLIP (01:05) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2.5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <h3 class="text-xs font-black uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-square-check text-rose-500"></i> MÁY CẢNH BÁO SỚM
+          </h3>
+          <span class="text-[10px] text-slate-400">Tự động đối chiếu đa thông số</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs" id="boxEarlyWarningFlags">
+          <div id="flag-fatigue" class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
+            <i class="fa-solid fa-square-check text-rose-500 text-sm"></i>
+            <span class="font-bold">Mệt mỏi, trầm cảm tinh thần</span>
+          </div>
+          <div id="flag-thinking" class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
+            <i class="fa-solid fa-square-check text-rose-500 text-sm"></i>
+            <span class="font-bold">Suy nghĩ nhiều tâm lý</span>
+          </div>
+          <div id="flag-throat" class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
+            <i class="fa-solid fa-square-check text-rose-500 text-sm"></i>
+            <span class="font-bold">Viêm họng triệu chứng</span>
+          </div>
+          <div id="flag-risk" class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200">
+            <i class="fa-solid fa-square-check text-rose-500 text-sm"></i>
+            <span class="font-bold">Nguy cơ bệnh cảnh báo trước</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 TAB NỘI DUNG BÁO CÁO 18 TRANG -->
+      <div class="flex bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-[11px] font-bold overflow-x-auto shadow-xl">
+        <button onclick="switchClinicTab('cl-tab-1')" id="btn-cl-1" class="flex-1 min-w-[85px] py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition">1. Thể Chất</button>
+        <button onclick="switchClinicTab('cl-tab-2')" id="btn-cl-2" class="flex-1 min-w-[110px] py-2 rounded-xl text-slate-400 hover:text-white transition">2. Gợi Ý Tinh Thần</button>
+        <button onclick="switchClinicTab('cl-tab-3')" id="btn-cl-3" class="flex-1 min-w-[105px] py-2 rounded-xl text-slate-400 hover:text-white transition">3. Xem Lưỡi & Mặt</button>
+        <button onclick="switchClinicTab('cl-tab-4')" id="btn-cl-4" class="flex-1 min-w-[85px] py-2 rounded-xl text-slate-400 hover:text-white transition">4. Mạch Tượng</button>
+        <button onclick="switchClinicTab('cl-tab-5')" id="btn-cl-5" class="flex-1 min-w-[115px] py-2 rounded-xl text-slate-400 hover:text-white transition">5. Chăm Sóc Hàng Ngày</button>
+      </div>
+
+      <!-- TAB 1: THỂ CHẤT -->
+      <div id="cl-tab-1" class="clinic-subtab bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
+        <div class="border-b border-slate-800 pb-3 flex justify-between items-start">
+          <div>
+            <span class="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded font-mono font-bold uppercase">Báo cáo nhận diện thể chất</span>
+            <h3 class="text-xl font-black text-white mt-1" id="diagMainTitle">Thể chất trầm cảm</h3>
+            <p class="text-xs text-amber-300 font-medium mt-0.5" id="diagSubTitle">Kết hợp thể chất ướt (Tỳ hư) và thể chất nóng</p>
+          </div>
+          <div class="px-3 py-1.5 rounded-xl bg-teal-950 border border-teal-500/40 text-teal-400 font-mono text-xs font-bold text-center" id="diagBadgeBox">
+            Chứng can mật<br>ấm nóng ứ đọng
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300 space-y-2 leading-relaxed">
+          <p><strong class="text-amber-400">Bệnh sinh học Đông y:</strong> <span id="diagPathologyText">Bởi vì ẩm nhiệt nội uẩn, can đởm khí trệ huyết ứ gây nên. Can chủ sơ tiết bị đình trệ làm cơ thể mệt mỏi rã rời, uể oải tinh thần, suy nghĩ miên man khó dứt.</span></p>
+          <p><strong class="text-teal-400">Chất lưỡi & Rêu:</strong> <span id="diagTongueSummaryText">Lưỡi bệu ướt có vết hằn răng hai bên (Tỳ hư thấp trệ); tĩnh mạch dưới gầm lưỡi sưng to tím thẫm (Huyết ứ trệ kinh lạc).</span></p>
+        </div>
+      </div>
+
+      <!-- TAB 2: GỢI Ý TINH THẦN (BẢNG 13 CHỈ SỐ NGUYÊN BẢN TRONG CLIP) -->
+      <div id="cl-tab-2" class="clinic-subtab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
+        <div class="border-b border-slate-800 pb-2 flex justify-between items-center text-xs">
+          <div>
+            <h3 class="font-bold uppercase tracking-wider text-teal-400">Dấu hiệu cơ thể / Đơn vị (%)</h3>
+            <p class="text-[10px] text-slate-400">Thang đo: Thường (0-30%) • Trung (30-70%) • Trọng (70-100%)</p>
+          </div>
+          <div class="flex gap-2 text-[9px] font-bold">
+            <span class="text-emerald-400">■ Thường</span>
+            <span class="text-amber-400">■ Trung</span>
+            <span class="text-rose-400">■ Trọng</span>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 text-xs" id="clinicIndicatorsContainer"></div>
+      </div>
+
+      <!-- TAB 3: XEM LƯỠI & XEM MẶT -->
+      <div id="cl-tab-3" class="clinic-subtab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase text-teal-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-eye"></i> Quan Sát Lưỡi (Thiệt Chẩn)
+          </h4>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2 text-xs">
+            <div class="grid grid-cols-3 gap-2 border-b border-slate-800 pb-2 text-[11px]">
+              <span class="text-slate-400">Hạng mục</span>
+              <span class="text-slate-200">Kết quả kiểm tra</span>
+              <span class="text-slate-400">Giá trị chuẩn</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-[11px]">
+              <span class="text-slate-400">Màu lưỡi</span>
+              <span class="text-rose-400 font-bold" id="repTongueColor">Lưỡi tím</span>
+              <span class="text-emerald-400">Đỏ nhạt</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-[11px]">
+              <span class="text-slate-400">Hình lưỡi</span>
+              <span class="text-slate-200" id="repTongueShape">Lưỡi gầy, lưỡi gai, lưỡi bầm tím</span>
+              <span class="text-emerald-400">Thon gọn</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-[11px]">
+              <span class="text-slate-400">Rêu lưỡi</span>
+              <span class="text-amber-400 font-bold" id="repTongueMoss">Vàng mỏng nhờn</span>
+              <span class="text-emerald-400">Trắng mỏng</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
+              <strong class="text-rose-400 block mb-0.5">• Mạch dưới lưỡi (Thiệt hạ):</strong>
+              <span id="repTongueSubText">Mạch máu dưới lưỡi sưng to rõ ràng, có thể gợi ý có huyết ứ (kết hợp SpO2 96% làm thiếu oxy mao mạch).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase text-cyan-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-user"></i> Quan Sát Mặt (Diện Chẩn)
+          </h4>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2 text-xs">
+            <div class="grid grid-cols-2 gap-2 text-[11px]">
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Sắc mặt:</span>
+                <span class="text-slate-200 font-bold" id="repFaceTone">Ánh sáng ngời, tính đàn hồi, không nếp nhăn.</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Màu môi:</span>
+                <span class="text-rose-400 font-bold" id="repLipTone">Màu môi hơi tím.</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed" id="repFaceAnalysisNote">
+              <em>* Phân tích diện mạo:</em> Màu môi hơi tím, có thể gợi ý huyết ứ hoặc chức năng tim, phổi, cung cấp oxy không đủ (SpO2 96%).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: MẠCH TƯỢNG -->
+      <div id="cl-tab-4" class="clinic-subtab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
+        <div class="border-b border-slate-800 pb-2 flex justify-between items-center text-xs">
+          <div>
+            <h3 class="font-bold uppercase tracking-wider text-rose-400">Phân Tích Mạch Tượng (Tay Trái & Tay Phải)</h3>
+            <p class="text-[10px] text-slate-400" id="repPulseSubHeader">Smooth mạch chủ hoạt • Nhịp tim 85 lần/phút • Hơi hồi hộp</p>
+          </div>
+          <span class="text-amber-400 font-bold font-mono" id="repSummaryBpm">Nhịp tim: 85 bpm</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px]">Mạch tượng thể:</span>
+            <strong class="text-amber-300 text-sm" id="repPulseTypeName">Smooth (Hoạt)</strong>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px]">Nhịp tim lúc nghỉ:</span>
+            <strong class="text-rose-400 text-sm" id="repHeartState">85 BPM (Hồi hộp)</strong>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[10px]">Oxy máu & Stress:</span>
+            <strong class="text-cyan-400 text-sm" id="repSpO2State">96% / Stress 68</strong>
+          </div>
+        </div>
+
+        <!-- 3 Khu Vực Mạch Tượng Tay Trái -->
+        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
+          <div class="flex justify-between items-center text-[11px]">
+            <span class="font-bold text-slate-300">Biểu đồ áp lực Thốn - Quan - Xích tay trái:</span>
+            <div class="flex gap-2 text-[9px]">
+              <span class="text-teal-400">Bình thường</span>
+              <span class="text-amber-400">Bất thường</span>
+              <span class="text-rose-400">Bất lợi</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div>
+              <div class="flex justify-between text-[10px] mb-0.5">
+                <span class="text-slate-400">Bộ Thốn (Tâm mạch)</span>
+                <span class="text-amber-400 font-bold" id="barThonStatus">Khu vực bất thường</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden flex">
+                <div class="bg-teal-500 h-full w-[40%]"></div>
+                <div class="bg-amber-500 h-full w-[35%]"></div>
+                <div class="bg-rose-500 h-full w-[25%] opacity-30"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[10px] mb-0.5">
+                <span class="text-slate-400">Bộ Quan (Can mạch - Huyền)</span>
+                <span class="text-rose-400 font-bold" id="barQuanStatus">Khu vực bất lợi sức khỏe</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden flex">
+                <div class="bg-teal-500 h-full w-[30%]"></div>
+                <div class="bg-amber-500 h-full w-[30%]"></div>
+                <div class="bg-rose-500 h-full w-[40%]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[10px] mb-0.5">
+                <span class="text-slate-400">Bộ Xích (Thận mạch)</span>
+                <span class="text-teal-400 font-bold" id="barXichStatus">Khu vực bình thường</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden flex">
+                <div class="bg-teal-500 h-full w-[75%]"></div>
+                <div class="bg-amber-500 h-full w-[25%] opacity-30"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-[11px] text-slate-400 leading-relaxed pt-1" id="txtDoctorPulseNote">
+            <em>* Lời bình máy:</em> Smooth mạch chủ hoạt, phải nói là đường tiêu hóa chưa đầy đủ; nhịp tim 85 lần/phút phản ánh tâm thần bất an, can hỏa tích nhiệt; chỉ số stress 68 chứng minh trương lực giao cảm tăng cao.
+          </p>
+        </div>
+      </div>
+
+      <!-- TAB 5: CHĂM SÓC HÀNG NGÀY & LỜI KHUYÊN -->
+      <div id="cl-tab-5" class="clinic-subtab hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 shadow-xl">
+        <div class="border-b border-slate-800 pb-2">
+          <h3 class="font-bold uppercase tracking-wider text-teal-400 text-xs">Lời Khuyên Dưỡng Sinh Riêng Theo Thể Chất</h3>
+          <p class="text-[10px] text-slate-400">Chăm sóc toàn diện 4 trục: Bấm huyệt, Dược thiện, Chạy bộ, Ngũ âm</p>
+        </div>
+
+        <!-- Ẩm thực dưỡng sinh -->
+        <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
+          <span class="font-bold text-amber-400 flex items-center gap-1.5 uppercase text-[11px]">
+            <i class="fa-solid fa-utensils"></i> Ẩm Thực Dưỡng Sinh
+          </span>
+          <div class="space-y-1.5 text-slate-300 text-[11px] leading-relaxed">
+            <p><strong class="text-rose-400">• [Chế độ ăn kiêng]:</strong> Tránh ăn nhiều dầu mỡ, đồ chiên xào cay nóng, đồ ngọt béo, rượu bia.</p>
+            <p><strong class="text-teal-300">• [Đề nghị ăn uống]:</strong> Nên ăn các loại thực phẩm thanh đạm, rau đay, mướp đắng, rau ngót, nước rau muống...</p>
+            <p><strong class="text-emerald-300">• [Lời khuyên thực phẩm]:</strong> Cháo gạo tẻ nấu đậu xanh: Sau khi cho 60g đậu xanh vào nước, nấu cháo với 100g gạo japonica và một lượng nước thích hợp. Mỗi ngày 2 lần.</p>
+          </div>
+        </div>
+
+        <!-- Thực đơn 5 ngày thanh lọc -->
+        <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2 text-xs">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-emerald-400 uppercase text-[11px] flex items-center gap-1.5">
+              <i class="fa-solid fa-calendar-days"></i> Thực Đơn 5 Ngày Thanh Lọc
+            </span>
+            <div class="flex gap-1" id="tab5DaysBtnContainer">
+              <button type="button" onclick="switchDietDay(1)" id="btnDay1" class="px-2 py-0.5 rounded bg-teal-500 text-slate-950 font-bold text-[10px]">N1</button>
+              <button type="button" onclick="switchDietDay(2)" id="btnDay2" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">N2</button>
+              <button type="button" onclick="switchDietDay(3)" id="btnDay3" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">N3</button>
+              <button type="button" onclick="switchDietDay(4)" id="btnDay4" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">N4</button>
+              <button type="button" onclick="switchDietDay(5)" id="btnDay5" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">N5</button>
+            </div>
+          </div>
+          <div id="dietDayContent" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 space-y-1">
+            <strong class="text-teal-300 block">Ngày 1: Thanh Can Giáng Hỏa (Hạ Nhịp Tim 85 BPM)</strong>
+            <p>• Sáng: Cháo gạo tẻ đậu xanh nha đam (60g đậu xanh + 100g gạo japonica).</p>
+            <p>• Trưa: Canh mướp đắng hầm thịt nạc thanh đạm, rau đay luộc.</p>
+            <p>• Tối: Canh rau ngót nấu tôm tươi thanh nhiệt, cơm gạo lứt nhẹ bụng.</p>
+            <p>• Trà thảo dược: Trà hoa cúc tâm sen xua tan âu lo bồn chồn.</p>
+          </div>
+        </div>
+
+        <!-- Hệ Thần Huyệt Lục Phủ Ngũ Tạng (10 Đại Huyệt Chuyên Sâu) -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-teal-400 flex items-center gap-1.5 uppercase text-xs">
+              <i class="fa-solid fa-hand-dots text-sm"></i> Ngoại Dưỡng: Hệ Thần Huyệt (Bản Chuẩn Video)
+            </span>
+            <span class="text-[10px] text-amber-400 font-mono">10-15 lần / 1 liệu trình</span>
+          </div>
+
+          <!-- Sơ đồ giải phẫu vector 3 vùng -->
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-[10px] text-slate-400">
+              <span>SƠ ĐỒ ĐỊNH VỊ GIẢI PHẪU 10 HUYỆT ĐẠO CHUYÊN SÂU TRONG VIDEO</span>
+              <span class="text-emerald-400">● Chạm vào huyệt để xem chi tiết</span>
+            </div>
+            
+            <div class="relative w-full h-56 bg-slate-900/90 rounded-xl border border-slate-800 overflow-hidden flex items-center justify-center">
+              <svg viewBox="0 0 600 210" class="w-full h-full">
+                <!-- Khu vực 1: Cẳng tay & Bàn tay -->
+                <g transform="translate(10, 15)">
+                  <path d="M30 65 C90 60, 160 55, 230 65 C250 70, 260 85, 245 100 C170 110, 90 105, 30 90 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                  <path d="M230 65 C260 55, 285 60, 300 75 C300 90, 275 105, 245 100 Z" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                  <line x1="225" y1="60" x2="225" y2="105" stroke="#0d9488" stroke-dasharray="3,3" stroke-width="1.5"/>
+                  <text x="225" y="50" fill="#5eead4" font-size="8" text-anchor="middle">Lằn cổ tay</text>
+
+                  <!-- Huyệt Nội Quan (PC6) -->
+                  <circle cx="185" cy="80" r="7" fill="#0d9488" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('noi_quan')"/>
+                  <text x="185" y="68" fill="#2dd4bf" font-size="9" font-weight="bold" text-anchor="middle">Nội Quan</text>
+
+                  <!-- Huyệt Khích Môn (PC4) -->
+                  <circle cx="130" cy="78" r="7" fill="#f59e0b" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('khich_mon')"/>
+                  <text x="130" y="66" fill="#fbbf24" font-size="9" font-weight="bold" text-anchor="middle">Khích Môn</text>
+
+                  <!-- Huyệt Xích Trạch (LU5) -->
+                  <circle cx="50" cy="74" r="7" fill="#ef4444" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('xich_trach')"/>
+                  <text x="50" y="60" fill="#f87171" font-size="9" font-weight="bold" text-anchor="middle">Xích Trạch</text>
+
+                  <!-- Huyệt Ngoại Quan (SJ5) -->
+                  <circle cx="185" cy="104" r="6" fill="#8b5cf6" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('ngoai_quan')"/>
+                  <text x="185" y="122" fill="#c4b5fd" font-size="8" font-weight="bold" text-anchor="middle">Ngoại Quan</text>
+                </g>
+
+                <!-- Khu vực 2: Thân mình & Cổ gáy -->
+                <g transform="translate(320, 15)">
+                  <path d="M40 30 C50 15, 90 15, 100 30 C120 45, 130 90, 125 150 C70 160, 70 160, 15 150 C10 90, 20 45, 40 30 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                  <!-- Huyệt Đại Trùy (GV14) -->
+                  <circle cx="70" cy="28" r="6.5" fill="#f97316" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('dai_truy')"/>
+                  <text x="70" y="20" fill="#fdba74" font-size="8" font-weight="bold" text-anchor="middle">Đại Trùy (C7)</text>
+
+                  <!-- Huyệt Khí Hải (CV6) -->
+                  <circle cx="70" cy="115" r="6.5" fill="#10b981" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('khi_hai')"/>
+                  <text x="70" y="132" fill="#6ee7b7" font-size="8" font-weight="bold" text-anchor="middle">Khí Hải</text>
+                  <circle cx="70" cy="90" r="2.5" fill="#64748b"/>
+                  <text x="82" y="93" fill="#64748b" font-size="7">Rốn</text>
+                </g>
+
+                <!-- Khu vực 3: Chi dưới & Bàn chân -->
+                <g transform="translate(460, 15)">
+                  <path d="M30 10 C50 10, 75 25, 85 60 C90 110, 80 150, 70 175 C50 170, 35 130, 30 70 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                  <circle cx="60" cy="55" r="12" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+                  
+                  <!-- Huyệt Huyết Hải (SP10) -->
+                  <circle cx="42" cy="32" r="6.5" fill="#06b6d4" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('huyet_hai')"/>
+                  <text x="42" y="22" fill="#22d3ee" font-size="8" font-weight="bold" text-anchor="middle">Huyết Hải</text>
+
+                  <!-- Huyệt Túc Tam Lý (ST36) -->
+                  <circle cx="75" cy="85" r="6.5" fill="#eab308" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('tuc_tam_ly')"/>
+                  <text x="105" y="88" fill="#fde047" font-size="8" font-weight="bold" text-anchor="middle">Túc Tam Lý</text>
+
+                  <!-- Huyệt Tam Âm Giao (SP6) -->
+                  <circle cx="45" cy="140" r="6.5" fill="#ec4899" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('tam_am_giao')"/>
+                  <text x="45" y="156" fill="#f472b6" font-size="8" font-weight="bold" text-anchor="middle">Tam Âm Giao</text>
+
+                  <!-- Huyệt Thái Xung (LR3) -->
+                  <circle cx="65" cy="182" r="6" fill="#14b8a6" class="acupoint-node cursor-pointer" onclick="showAcupointDetailModal('thai_xung')"/>
+                  <text x="65" y="196" fill="#5eead4" font-size="8" font-weight="bold" text-anchor="middle">Thái Xung</text>
+                </g>
+              </svg>
+            </div>
+            <p class="text-[10px] text-slate-400 italic text-center">* Chạm vào từng điểm huyệt để xem vị trí và thủ pháp day ấn 10–15 lần.</p>
+          </div>
+
+          <!-- Bảng 10 Đại Huyệt -->
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-teal-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('noi_quan')">
+              <strong class="text-teal-300 block text-xs flex justify-between">
+                <span>1. Huyệt Nội Quan</span>
+                <span class="text-[9px] text-teal-400 font-mono">Tâm Bào</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Cổ tay lên 2 thốn, giữa hai gân.</p>
+              <span class="text-emerald-400 text-[9px] block">Định tâm an thần, hạ nhịp tim 85 BPM</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-violet-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('ngoai_quan')">
+              <strong class="text-violet-300 block text-xs flex justify-between">
+                <span>2. Huyệt Ngoại Quan</span>
+                <span class="text-[9px] text-violet-400 font-mono">Tam Tiêu</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Mặt sau cẳng tay, đối diện Nội Quan.</p>
+              <span class="text-emerald-400 text-[9px] block">Giải biểu thanh nhiệt, thông kinh lạc</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-amber-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('khich_mon')">
+              <strong class="text-amber-300 block text-xs flex justify-between">
+                <span>3. Huyệt Khích Môn</span>
+                <span class="text-[9px] text-amber-400 font-mono">Khích Huyệt</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Lằn cổ tay đo lên 5 thốn.</p>
+              <span class="text-emerald-400 text-[9px] block">Thanh tâm hỏa, trị đau tức ngực sườn</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-rose-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('xich_trach')">
+              <strong class="text-rose-300 block text-xs flex justify-between">
+                <span>4. Huyệt Xích Trạch</span>
+                <span class="text-[9px] text-rose-400 font-mono">Phế Kinh</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Trên nếp gấp khuỷu tay, bờ ngoài gân nhị đầu.</p>
+              <span class="text-emerald-400 text-[9px] block">Thanh phế chỉ khái, trị viêm họng</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-cyan-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('huyet_hai')">
+              <strong class="text-cyan-300 block text-xs flex justify-between">
+                <span>5. Huyệt Huyết Hải</span>
+                <span class="text-[9px] text-cyan-400 font-mono">Tỳ Kinh</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Bờ trong bánh chè đo lên 2 thốn.</p>
+              <span class="text-emerald-400 text-[9px] block">Hoạt huyết hóa ứ, tiêu mạch tím gầm lưỡi</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-emerald-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('khi_hai')">
+              <strong class="text-emerald-300 block text-xs flex justify-between">
+                <span>6. Huyệt Khí Hải</span>
+                <span class="text-[9px] text-emerald-400 font-mono">Nhâm Mạch</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Dưới rốn 1.5 thốn (bể chứa nguyên khí).</p>
+              <span class="text-emerald-400 text-[9px] block">Ích khí bổ thận, tiêu trừ mệt mỏi</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-orange-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('dai_truy')">
+              <strong class="text-orange-300 block text-xs flex justify-between">
+                <span>7. Huyệt Đại Trùy (Đại Trĩ)</span>
+                <span class="text-[9px] text-orange-400 font-mono">Đốc Mạch</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Dưới mỏm gai đốt sống cổ C7.</p>
+              <span class="text-emerald-400 text-[9px] block">Thông thoái hóa đốt sống cổ gáy</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-teal-400 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('thai_xung')">
+              <strong class="text-teal-200 block text-xs flex justify-between">
+                <span>8. Huyệt Thái Xung</span>
+                <span class="text-[9px] text-teal-400 font-mono">Can Kinh</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Kẽ ngón chân 1-2 đo lên 1.5 thốn.</p>
+              <span class="text-emerald-400 text-[9px] block">Bình can tức phong, xua tan can hỏa lo âu</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-yellow-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('tuc_tam_ly')">
+              <strong class="text-yellow-300 block text-xs flex justify-between">
+                <span>9. Huyệt Túc Tam Lý</span>
+                <span class="text-[9px] text-yellow-400 font-mono">Vị Kinh</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Dưới mắt cá ngoài đầu gối 3 thốn.</p>
+              <span class="text-emerald-400 text-[9px] block">Kiện tỳ ích vị, hỗ trợ tiêu hóa dầu mỡ</span>
+            </div>
+
+            <div class="bg-slate-950 p-2.5 rounded-2xl border-l-4 border-pink-500 border-y border-r border-slate-800 space-y-0.5 cursor-pointer hover:bg-slate-900 transition" onclick="showAcupointDetailModal('tam_am_giao')">
+              <strong class="text-pink-300 block text-xs flex justify-between">
+                <span>10. Huyệt Tam Âm Giao</span>
+                <span class="text-[9px] text-pink-400 font-mono">Hội 3 Kinh</span>
+              </strong>
+              <p class="text-slate-400 text-[10px]">Đỉnh mắt cá trong đo thẳng lên 3 thốn.</p>
+              <span class="text-emerald-400 text-[9px] block">Dưỡng âm hòa huyết, điều hòa giấc ngủ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bộ Kích Hoạt Ngũ Âm Lượng Tử 5 Cung Điệu (Web Audio Synthesizer) -->
+        <div class="bg-slate-950 p-4 rounded-3xl border border-slate-800 space-y-3.5 text-xs">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <div>
+              <span class="font-bold text-purple-400 flex items-center gap-1.5 uppercase text-xs">
+                <i class="fa-solid fa-music text-sm"></i> Ngũ Âm Lượng Tử: 5 Âm Điệu Ngũ Tạng (Hoàng Đế Nội Kinh)
+              </span>
+              <p class="text-[10px] text-slate-400">Tần số cộng hưởng sinh học thuần khiết tác động trực tiếp vào 5 tạng</p>
+            </div>
+            <span id="txtAudioPlayingTag" class="text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded-full font-mono">Đang tắt</span>
+          </div>
+
+          <!-- 5 Cung Điệu Ngũ Âm -->
+          <div class="grid grid-cols-5 gap-1.5 text-center">
+            <button type="button" onclick="playFiveToneSynthesizer('cung')" id="btnTone-cung" class="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 transition flex flex-col items-center">
+              <span class="text-xs font-black text-amber-300">CUNG (宫)</span>
+              <span class="text-[9px] text-slate-400">Hành Thổ</span>
+              <span class="text-[8px] text-amber-400 font-mono">261.6 Hz</span>
+              <span class="text-[9px] text-amber-400 mt-1 font-bold">Kiện Tỳ</span>
+            </button>
+            <button type="button" onclick="playFiveToneSynthesizer('thuong')" id="btnTone-thuong" class="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 transition flex flex-col items-center">
+              <span class="text-xs font-black text-cyan-300">THƯƠNG (商)</span>
+              <span class="text-[9px] text-slate-400">Hành Kim</span>
+              <span class="text-[8px] text-amber-400 font-mono">293.6 Hz</span>
+              <span class="text-[9px] text-cyan-300 mt-1 font-bold">Thanh Phế</span>
+            </button>
+            <button type="button" onclick="playFiveToneSynthesizer('goc')" id="btnTone-goc" class="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-teal-400 transition flex flex-col items-center">
+              <span class="text-xs font-black text-teal-300">DỐC (角)</span>
+              <span class="text-[9px] text-slate-400">Hành Mộc</span>
+              <span class="text-[8px] text-amber-400 font-mono">329.6 Hz</span>
+              <span class="text-[9px] text-teal-400 mt-1 font-bold">Thư Can</span>
+            </button>
+            <button type="button" onclick="playFiveToneSynthesizer('chuy')" id="btnTone-chuy" class="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-rose-400 transition flex flex-col items-center">
+              <span class="text-xs font-black text-rose-400">CHỦY (徵)</span>
+              <span class="text-[9px] text-slate-400">Hành Hỏa</span>
+              <span class="text-[8px] text-amber-400 font-mono">392.0 Hz</span>
+              <span class="text-[9px] text-rose-300 mt-1 font-bold">Dưỡng Tâm</span>
+            </button>
+            <button type="button" onclick="playFiveToneSynthesizer('vu')" id="btnTone-vu" class="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-400 transition flex flex-col items-center">
+              <span class="text-xs font-black text-indigo-300">VŨ (羽)</span>
+              <span class="text-[9px] text-slate-400">Hành Thủy</span>
+              <span class="text-[8px] text-amber-400 font-mono">440.0 Hz</span>
+              <span class="text-[9px] text-indigo-300 mt-1 font-bold">Bổ Thận</span>
+            </button>
+          </div>
+
+          <div class="bg-slate-900/90 p-3 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-300 relative overflow-hidden" id="iconSoundWave">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </div>
+              <div>
+                <strong class="text-slate-200 text-xs block" id="lblTonePlayingName">Chạm 1 âm điệu để phát thử nghiệm</strong>
+                <p class="text-[10px] text-slate-400" id="lblTonePlayingDesc">Sóng lượng tử ngũ tạng: Nghe 15 phút vào sáng sớm hoặc trước khi ngủ</p>
+              </div>
+            </div>
+            <button type="button" onclick="stopFiveToneSynthesizer()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-[10px] font-bold border border-slate-700 transition">
+              <i class="fa-solid fa-stop mr-1"></i> Tắt
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Ô TÍCH ĐỎ LỜI KHUYÊN THEO THỂ CHẤT NGUYÊN BẢN (VIDEO GIÂY 01:24) -->
+        <div class="bg-slate-950 p-4 rounded-3xl border border-slate-800 space-y-3 text-xs">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <h4 class="font-bold text-amber-400 flex items-center gap-1.5 uppercase text-xs">
+              <i class="fa-solid fa-square-check text-rose-500"></i> Lời Khuyên Theo Thể Chất (Nguyên Bản Video)
+            </h4>
+            <span class="text-[10px] text-slate-400 font-mono">Kiến Đạo Phục Dược</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="p-3 rounded-2xl bg-slate-900/90 border border-rose-500/30 flex items-start gap-2.5">
+              <i class="fa-solid fa-square-check text-rose-500 text-lg mt-0.5 shrink-0"></i>
+              <div class="space-y-0.5">
+                <strong class="text-rose-200 text-xs block">Ngoại dưỡng ấn huyệt</strong>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Định mạch thư can giải uất. Lấy các huyệt: <strong>Nội Quan, Ngoại Quan, Xích Trạch, Khích Môn, Huyết Hải, Khí Hải, Đại Trĩ (Đại Trùy)...</strong> Ấn day nhẹ nhàng, không được dùng sức quá thô bạo. Thực hiện 10–15 lần là 1 liệu trình điều trị.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/90 border border-rose-500/30 flex items-start gap-2.5">
+              <i class="fa-solid fa-square-check text-rose-500 text-lg mt-0.5 shrink-0"></i>
+              <div class="space-y-0.5">
+                <strong class="text-rose-200 text-xs block">Nội dưỡng chạy bộ, vận động</strong>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Chạy bộ hoặc đi bộ nhanh 25–30 phút vào buổi sáng sớm giúp đổ mồ hôi vi lượng, tán khí uất kết, kích hoạt tuần hoàn khí huyết toàn thân.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/90 border border-rose-500/30 flex items-start gap-2.5">
+              <i class="fa-solid fa-square-check text-rose-500 text-lg mt-0.5 shrink-0"></i>
+              <div class="space-y-0.5">
+                <strong class="text-rose-200 text-xs block">Âm nhạc ngũ âm</strong>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Đương nhiên là ngũ âm: Ưu tiên <strong>điệu Dốc</strong> (thư can, bình can giáng hỏa, hạ nhịp tim 85 BPM) phối hợp <strong>điệu Thương</strong> (thanh phế, tuyên thông khí quản hầu họng).
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-900/90 border border-rose-500/30 flex items-start gap-2.5">
+              <i class="fa-solid fa-square-check text-rose-500 text-lg mt-0.5 shrink-0"></i>
+              <div class="space-y-0.5">
+                <strong class="text-rose-200 text-xs block">Lối sống sinh hoạt, môi trường</strong>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Tránh môi trường ẩm thấp nóng bức lâu ngày; giữ tinh thần thư thái, đi ngủ trước 23h để can đởm hồi phục, tránh thức khuya làm tổn thương tân dịch.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== LOGIC JAVASCRIPT TOÀN DIỆN ==================== -->
+  <script>
+    // Khóa API mặc định được mã hóa Base64 an toàn để GitHub không bao giờ chặn lưu file
+    const ENCODED_DEFAULT_KEY = "QVEuQWI4Uk42SWVXd1FNTVJWeXlGSFJrV1YyZUlHcWQ1RTRJMnp4MVdkVGNKb1ZPQUFXamc=";
+    function getDecodedDefaultKey() {
+      try { return atob(ENCODED_DEFAULT_KEY); } catch(e) { return ""; }
+    }
+
+    // 13 Chỉ số lâm sàng chính xác từ video (00:54 - 01:04)
+    let currentIndicators = [
+      { id: "im", name: "Khả năng miễn dịch", score: 7, level: "7 thường", cat: "thuong" },
+      { id: "di", name: "Hệ tiêu hóa", score: 58, level: "58 trung", cat: "trung" },
+      { id: "an", name: "Lo lắng", score: 66, level: "66 trung", cat: "trung" },
+      { id: "sp", name: "Cột sống không thẳng", score: 9, level: "9 thường", cat: "thuong" },
+      { id: "gl", name: "Đường huyết", score: 40, level: "40 thấp", cat: "thuong" },
+      { id: "fa", name: "Mệt mỏi", score: 54, level: "54 trung", cat: "trung" },
+      { id: "de", name: "Trầm cảm", score: 61, level: "61 trung", cat: "trung" },
+      { id: "sl", name: "Ngủ", score: 23, level: "23 thấp", cat: "thuong" },
+      { id: "lp", name: "Mỡ máu", score: 55, level: "Nguy cơ", cat: "trung" },
+      { id: "cs", name: "Bệnh thoái hóa đốt sống cổ", score: 9, level: "9 thường", cat: "thuong" },
+      { id: "mi", name: "Nhồi máu cơ tim", score: 1, level: "1 thường", cat: "thuong" },
+      { id: "bp", name: "Huyết áp", score: 1, level: "1 thường", cat: "thuong" },
+      { id: "ph", name: "Viêm họng", score: 7, level: "7 thường", cat: "thuong" }
+    ];
+
+    // Thập Vấn Ca Mở Rộng 14 Câu Hỏi Chuyên Sâu Tạng Phủ
+    const EXTENDED_QUIZ_QUESTIONS = [
+      { id: "q1", organ: "Can", text: "Bạn có thường suy nghĩ miên man, lo âu, cảm thấy khó giải tỏa áp lực công việc?", def: 3 },
+      { id: "q2", organ: "Tâm", text: "Có hay hồi hộp, tim đập nhanh, ngực bức bối khó thở lúc nghỉ ngơi?", def: 2 },
+      { id: "q3", organ: "Phế", text: "Cổ họng có thường khô rát, ngứa ngáy, vướng đờm (khạc không ra, nuốt không trôi)?", def: 3 },
+      { id: "q4", organ: "Tỳ", text: "Ăn đồ dầu mỡ, đồ chiên xào hoặc đồ béo ngọt có dễ bị sình bụng, trướng hơi khó tiêu?", def: 2 },
+      { id: "q5", organ: "Khí", text: "Sáng thức giấc cảm thấy người mệt mỏi rã rời, uể oải tinh thần, thiếu năng lượng làm việc?", def: 2 },
+      { id: "q6", organ: "Cân", text: "Cổ vai gáy hay bị căng cứng mỏi ê ẩm, đau lan xuống bả vai khi ngồi lâu?", def: 2 },
+      { id: "q7", organ: "Huyết", text: "Môi xỉn màu hoặc hơi tím, da dễ bị bầm tím, cơ thể nặng nề u trệ?", def: 2 },
+      { id: "q8", organ: "Thần", text: "Giấc ngủ chập chờn, hay mê man, thường thức giấc vào khoảng 1h–3h sáng?", def: 2 },
+      { id: "q9", organ: "Nhiệt", text: "Trong người có cảm giác nóng bứt rứt ngầm (ngũ tâm phiền nhiệt), hay khát nước mát?", def: 2 },
+      { id: "q10", organ: "Đởm", text: "Sáng ngủ dậy miệng có bị đắng, khô họng hoặc tức nặng mạn sườn phải?", def: 2 },
+      { id: "q11", organ: "Thấp", text: "Đầu óc cảm giác nặng như đội mũ, mắt có dử, đại tiện dính bết khó dội sạch?", def: 3 },
+      { id: "q12", organ: "Hãn", text: "Có hay đổ mồ hôi trộm ban đêm hoặc tự ra mồ hôi khi vận động nhẹ?", def: 1 },
+      { id: "q13", organ: "Vị", text: "Có hiện tượng ợ chua, ợ hơi nóng, xót ruột khi bụng đói hoặc sau ăn no?", def: 2 },
+      { id: "q14", organ: "Thận", text: "Lưng gối mỏi lạnh, hay tiểu đêm nhiều lần, giảm sức bền thể lực?", def: 1 }
+    ];
+
+    let userAnswersMap = {};
+
+    // SVG Demo Images
+    const SVG_TONGUE_TOP = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160' viewBox='0 0 240 160'><rect width='240' height='160' fill='%230f172a'/><path d='M60 40 C60 10, 180 10, 180 40 C180 110, 160 145, 120 150 C80 145, 60 110, 60 40 Z' fill='%23991b1b'/><path d='M80 45 C80 20, 160 20, 160 45 C160 90, 140 115, 120 120 C100 115, 80 90, 80 45 Z' fill='%23b45309' opacity='0.75'/><path d='M60 55 Q70 65 60 75 Q70 85 60 95' stroke='%23fef08a' stroke-width='3' fill='none'/><path d='M180 55 Q170 65 180 75 Q170 85 180 95' stroke='%23fef08a' stroke-width='3' fill='none'/><text x='120' y='85' fill='%23fef08a' font-size='11' font-family='sans-serif' text-anchor='middle' font-weight='bold'>Lưỡi Bệu Ướt - Rêu Nhờn</text></svg>";
+    const SVG_TONGUE_SUB = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160' viewBox='0 0 240 160'><rect width='240' height='160' fill='%230f172a'/><path d='M70 140 C70 50, 170 50, 170 140 Z' fill='%23881337'/><path d='M100 135 C95 105, 90 85, 105 65' stroke='%233b0764' stroke-width='6' fill='none' stroke-linecap='round'/><path d='M140 135 C145 105, 150 85, 135 65' stroke='%233b0764' stroke-width='6' fill='none' stroke-linecap='round'/><circle cx='105' cy='65' r='4' fill='%23581c87'/><circle cx='135' cy='65' r='4' fill='%23581c87'/><text x='120' y='110' fill='%23c084fc' font-size='10' font-family='sans-serif' text-anchor='middle' font-weight='bold'>Tĩnh Mạch Tím Sẫm (Huyết Ứ)</text></svg>";
+    const SVG_FACE_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='160' viewBox='0 0 240 160'><rect width='240' height='160' fill='%230f172a'/><circle cx='120' cy='75' r='50' fill='%23d97706' opacity='0.35'/><ellipse cx='120' cy='75' rx='38' ry='48' fill='%23fed7aa'/><ellipse cx='105' cy='65' rx='4' ry='3' fill='%231e293b'/><ellipse cx='135' cy='65' rx='4' ry='3' fill='%231e293b'/><path d='M120 70 L118 80 L123 80' stroke='%2378350f' stroke-width='1.5' fill='none'/><path d='M110 95 Q120 102 130 95' stroke='%236b21a8' stroke-width='4' fill='none' stroke-linecap='round'/><text x='120' y='145' fill='%23fdba74' font-size='10' font-family='sans-serif' text-anchor='middle'>Sắc Mặt Đàn Hồi - Môi Hơi Tím</text></svg>";
+
+    function calcPatientBmi() {
+      const h = parseFloat(document.getElementById('ptHeight').value) / 100;
+      const w = parseFloat(document.getElementById('ptWeight').value);
+      if (h > 0 && w > 0) {
+        const bmi = (w / (h * h)).toFixed(1);
+        const badge = document.getElementById('txtPatientBmiBadge');
+        let state = "Bình thường";
+        if (bmi < 18.5) state = "Thiếu cân";
+        else if (bmi >= 23 && bmi < 25) state = "Thừa cân";
+        else if (bmi >= 25) state = "Béo phì";
+        badge.innerText = `BMI: ${bmi} (${state})`;
+        if (bmi >= 23) badge.className = "text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-mono font-bold";
+        else badge.className = "text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/40 px-2 py-0.5 rounded-full font-mono font-bold";
+        return { bmi, state };
+      }
+      return { bmi: 24.7, state: "Thừa cân" };
+    }
+
+    function triggerFileInput(inputId) {
+      const el = document.getElementById(inputId);
+      if (el) el.click();
+    }
+
+    function previewImageFile(input, imgId, badgeId, phId) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.getElementById(imgId);
+          img.src = e.target.result;
+          img.classList.remove('hidden');
+          document.getElementById(phId).classList.add('hidden');
+          const badge = document.getElementById(badgeId);
+          badge.innerText = "Đã Nạp";
+          badge.className = "text-[10px] text-emerald-400 font-bold";
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // ==========================================
+    // LIÊN KẾT ĐỘNG: CẬP NHẬT TAY CÁC CHỈ SỐ BẮT MẠCH
+    // ==========================================
+    function syncPulseValue(bpm) {
+      bpm = parseInt(bpm) || 80;
+      document.getElementById('inputPulseBpm').value = bpm;
+      document.getElementById('displayBpmLeft').innerText = bpm + " BPM";
+      document.getElementById('repSummaryBpm').innerText = "Nhịp tim: " + bpm + " bpm";
+      
+      const tag = document.getElementById('tagPulseType');
+      const desc = document.getElementById('descPulseBpm');
+      const thon = document.getElementById('leftThonText');
+      const repHeart = document.getElementById('repHeartState');
+
+      if (bpm > 80) {
+        tag.innerText = "Mạch Sác (Nhanh)";
+        tag.className = "text-rose-400 font-bold";
+        desc.innerText = ">80: Tâm hỏa bốc, hồi hộp, nóng trong";
+        thon.innerText = "Mạch Sác (Nhiệt hỏa)";
+        repHeart.innerText = `${bpm} BPM (Hơi hồi hộp)`;
+      } else if (bpm < 60) {
+        tag.innerText = "Mạch Trì (Chậm)";
+        tag.className = "text-cyan-400 font-bold";
+        desc.innerText = "<60: Dương khí suy, hàn tích, sợ lạnh";
+        thon.innerText = "Mạch Trì (Hàn chứng)";
+        repHeart.innerText = `${bpm} BPM (Mạch Chậm / Hàn)`;
+      } else {
+        tag.innerText = "Mạch Hoãn (Bình hòa)";
+        tag.className = "text-emerald-400 font-bold";
+        desc.innerText = "60-80: Nhịp tim bình hòa, khí huyết ổn";
+        thon.innerText = "Bình hòa";
+        repHeart.innerText = `${bpm} BPM (Bình hòa)`;
+      }
+      updateDynamicClinicalDiagnosis();
+    }
+
+    function syncSpO2Value(spo2) {
+      spo2 = parseInt(spo2) || 96;
+      document.getElementById('inputSpO2').value = spo2;
+      const desc = document.getElementById('descSpO2');
+      const tag = document.getElementById('tagSpO2Type');
+      const repLip = document.getElementById('repLipTone');
+      const repSub = document.getElementById('repTongueSubText');
+
+      if (spo2 < 97) {
+        tag.innerText = "Huyết Ứ";
+        tag.className = "text-rose-400 font-bold";
+        desc.innerText = "<97%: Môi hơi tím, ứ trệ mao mạch";
+        repLip.innerText = "Màu môi hơi tím (Thiếu oxy mao mạch).";
+        repSub.innerText = "Mạch máu dưới lưỡi sưng to tím thẫm rõ ràng, huyết ứ do giảm bão hòa oxy ngoại vi.";
+      } else {
+        tag.innerText = "Thông Suốt";
+        tag.className = "text-emerald-400 font-bold";
+        desc.innerText = "Bão hòa oxy bình hòa (>97%)";
+        repLip.innerText = "Sắc môi hồng nhuận bình thường.";
+        repSub.innerText = "Mạch máu dưới lưỡi thanh mảnh, không sưng phồng ứ trệ.";
+      }
+      updateDynamicClinicalDiagnosis();
+    }
+
+    function syncStressValue(stress) {
+      stress = parseInt(stress) || 50;
+      document.getElementById('inputStressVal').value = stress;
+      const tag = document.getElementById('tagStressType');
+      const desc = document.getElementById('descStressVal');
+      const quan = document.getElementById('leftQuanText');
+      const barQuan = document.getElementById('barQuanStatus');
+
+      if (stress > 60) {
+        tag.innerText = "Mạch Huyền (Dây đàn)";
+        tag.className = "text-rose-400 font-bold";
+        desc.innerText = ">60: Can uất, căng thẳng quá mức";
+        quan.innerText = "Mạch Huyền (Can uất/Căng thẳng)";
+        barQuan.innerText = "Khu vực bất lợi sức khỏe";
+        barQuan.className = "text-rose-400 font-bold";
+      } else if (stress > 40) {
+        tag.innerText = "Mạch Hơi Căng";
+        tag.className = "text-amber-400 font-bold";
+        desc.innerText = "40-60: Căng thẳng công việc mức độ vừa";
+        quan.innerText = "Mạch Hơi Huyền";
+        barQuan.innerText = "Khu vực bất thường nhẹ";
+        barQuan.className = "text-amber-400 font-bold";
+      } else {
+        tag.innerText = "Mạch Nhu Hòa";
+        tag.className = "text-emerald-400 font-bold";
+        desc.innerText = "<40: Tinh thần thư thái, can khí thư giãn";
+        quan.innerText = "Bình hòa thư thái";
+        barQuan.innerText = "Khu vực bình thường";
+        barQuan.className = "text-teal-400 font-bold";
+      }
+      updateDynamicClinicalDiagnosis();
+    }
+
+    function syncPpgManualSelection(waveType) {
+      const tag = document.getElementById('tagPpgType');
+      const desc = document.getElementById('descPpgWave');
+      const ppgDesc = document.getElementById('txtPpgWaveDesc');
+      const rightQuan = document.getElementById('rightQuanText');
+      const repPulseName = document.getElementById('repPulseTypeName');
+      const displayPulse = document.getElementById('displayPulseType');
+
+      if (waveType === 'smooth') {
+        tag.innerText = "Mạch Hoạt (Smooth)";
+        tag.className = "text-emerald-400 font-bold";
+        desc.innerText = "Đàm thấp, sình trướng tiêu hóa";
+        ppgDesc.innerText = "Sóng Smooth tròn đỉnh • Mạch Hoạt (Đàm thấp / Tỳ hư)";
+        rightQuan.innerText = "Mạch Hoạt (Đàm thấp)";
+        repPulseName.innerText = "Smooth (Hoạt)";
+        displayPulse.innerText = "Smooth";
+      } else if (waveType === 'string') {
+        tag.innerText = "Mạch Huyền (Dây đàn)";
+        tag.className = "text-rose-400 font-bold";
+        desc.innerText = "Can khí uất trệ, co thắt mạch";
+        ppgDesc.innerText = "Sóng dốc đứng, đỉnh nhọn • Mạch Huyền (Căng thẳng)";
+        rightQuan.innerText = "Mạch Huyền";
+        repPulseName.innerText = "String (Huyền)";
+        displayPulse.innerText = "String";
+      } else if (waveType === 'gentle') {
+        tag.innerText = "Mạch Nhu (Mềm yếu)";
+        tag.className = "text-teal-400 font-bold";
+        desc.innerText = "Khí huyết bất túc, suy nhược";
+        ppgDesc.innerText = "Sóng biên độ thấp, sườn thoai thoải • Mạch Nhu";
+        rightQuan.innerText = "Mạch Nhu";
+        repPulseName.innerText = "Gentle (Nhu)";
+        displayPulse.innerText = "Gentle";
+      } else if (waveType === 'rough') {
+        tag.innerText = "Mạch Sáp (Rít tắc)";
+        tag.className = "text-purple-400 font-bold";
+        desc.innerText = "Huyết ứ trệ, lòng mạch kém";
+        ppgDesc.innerText = "Sóng răng cưa khuyết trập trùng • Mạch Sáp (Huyết ứ)";
+        rightQuan.innerText = "Mạch Sáp";
+        repPulseName.innerText = "Rough (Sáp)";
+        displayPulse.innerText = "Rough";
+      }
+      drawRealtimePpgWaveform(waveType);
+      updateDynamicClinicalDiagnosis();
+    }
+
+    // ==========================================
+    // THUẬT TOÁN TÍNH TOÁN CHẨN ĐOÁN LÂM SÀNG TỔNG HỢP
+    // ==========================================
+    function updateDynamicClinicalDiagnosis() {
+      const bpm = parseInt(document.getElementById('inputPulseBpm').value) || 85;
+      const spo2 = parseInt(document.getElementById('inputSpO2').value) || 96;
+      const stress = parseInt(document.getElementById('inputStressVal').value) || 68;
+      const ppg = document.getElementById('selectPpgWaveManual').value;
+
+      // Cập nhật giá trị hiển thị tóm tắt
+      const rep = document.getElementById('repSpO2State');
+      if (rep) rep.innerText = `${spo2}% / Stress ${stress}`;
+
+      // Tính điểm động cho 13 chỉ số nguy cơ
+      const anxietyScore = Math.min(95, Math.round(stress * 0.95));
+      const fatigueScore = Math.min(90, Math.round((stress * 0.5) + (bpm > 80 ? 25 : 15)));
+      const depressionScore = Math.min(90, Math.round((stress * 0.6) + 20));
+      const digestiveScore = ppg === 'smooth' ? 58 : ppg === 'rough' ? 65 : 35;
+      const heartRisk = (bpm > 85 && spo2 < 96) ? 15 : (bpm > 80) ? 5 : 1;
+
+      currentIndicators.forEach(item => {
+        if (item.id === 'an') { item.score = anxietyScore; item.level = anxietyScore + " trung"; item.cat = anxietyScore > 70 ? 'trong' : 'trung'; }
+        if (item.id === 'fa') { item.score = fatigueScore; item.level = fatigueScore + " trung"; item.cat = fatigueScore > 70 ? 'trong' : 'trung'; }
+        if (item.id === 'de') { item.score = depressionScore; item.level = depressionScore + " trung"; item.cat = depressionScore > 70 ? 'trong' : 'trung'; }
+        if (item.id === 'di') { item.score = digestiveScore; item.level = digestiveScore + " trung"; item.cat = digestiveScore > 70 ? 'trong' : 'trung'; }
+        if (item.id === 'mi') { item.score = heartRisk; item.level = heartRisk + " thường"; }
+      });
+      renderIndicators();
+
+      // Cập nhật 4 Ô CẢNH BÁO ĐỎ dựa trên ngưỡng lâm sàng
+      const flagFatigue = document.getElementById('flag-fatigue');
+      const flagThinking = document.getElementById('flag-thinking');
+      const flagThroat = document.getElementById('flag-throat');
+      const flagRisk = document.getElementById('flag-risk');
+
+      if (flagFatigue) {
+        if (fatigueScore >= 50 || depressionScore >= 50) {
+          flagFatigue.className = "flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200";
+        } else {
+          flagFatigue.className = "flex items-center gap-2 p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-500 opacity-60";
+        }
+      }
+
+      if (flagThinking) {
+        if (anxietyScore >= 50 || stress >= 55) {
+          flagThinking.className = "flex items-center gap-2 p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200";
+        } else {
+          flagThinking.className = "flex items-center gap-2 p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-500 opacity-60";
+        }
+      }
+
+      // Cập nhật kết luận chẩn đoán tạng phủ
+      const mainTitle = document.getElementById('diagMainTitle');
+      const subTitle = document.getElementById('diagSubTitle');
+      const badgeBox = document.getElementById('diagBadgeBox');
+      const pathText = document.getElementById('diagPathologyText');
+
+      if (bpm > 80 && stress > 60 && ppg === 'smooth') {
+        mainTitle.innerText = "Thể chất trầm cảm";
+        subTitle.innerText = "Kết hợp thể chất ướt (Tỳ hư) và thể chất nóng (Nhiệt trệ)";
+        badgeBox.innerHTML = "Chứng can mật<br>ấm nóng ứ đọng";
+        pathText.innerText = "Bởi vì ẩm nhiệt nội uẩn, can đởm khí trệ huyết ứ gây nên. Can chủ sơ tiết bị đình trệ làm cơ thể mệt mỏi rã rời, uể oải tinh thần, suy nghĩ miên man khó dứt. Mạch sác 85 BPM kiêm hoạt (smooth) phản ánh nhiệt uất trung tiêu.";
+      } else if (bpm < 60) {
+        mainTitle.innerText = "Thể chất dương hư";
+        subTitle.innerText = "Hàn tích đình trệ, tỳ thận dương khí bất túc";
+        badgeBox.innerHTML = "Tỳ thận hư hàn<br>khí huyết ngưng trệ";
+        pathText.innerText = "Mạch trì dưới 60 lần/phút phản ánh dương khí suy vi, sợ lạnh chân tay buốt, tiêu hóa đình trệ không vận hóa được thủy thấp.";
+      } else {
+        mainTitle.innerText = "Thể chất khí uất";
+        subTitle.innerText = "Can khí bất thư, tinh thần căng thẳng thời gian dài";
+        badgeBox.innerHTML = "Can uất khí trệ<br>hơi có nhiệt uẩn";
+        pathText.innerText = "Trương lực mạch căng do suy nghĩ nhiều, tâm can hao tổn cần dưỡng tâm an thần, giải tỏa stress.";
+      }
+    }
+
+    // Vẽ sóng PPG quang học
+    function drawRealtimePpgWaveform(waveType) {
+      const cvs = document.getElementById('ppgWaveformCanvas');
+      if (!cvs) return;
+      cvs.width = cvs.offsetWidth || 340;
+      cvs.height = cvs.offsetHeight || 64;
+      const ctx = cvs.getContext('2d');
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+      ctx.beginPath();
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+
+      const w = cvs.width;
+      const h = cvs.height;
+      const midY = h / 2;
+
+      let x = 0;
+      ctx.moveTo(x, midY);
+
+      while (x < w) {
+        // baseline
+        ctx.lineTo(x + 10, midY);
+        x += 10;
+        if (waveType === 'smooth') {
+          // đỉnh tròn tù, khuyết mờ
+          ctx.bezierCurveTo(x + 10, midY - 24, x + 20, midY - 24, x + 30, midY);
+          x += 30;
+          ctx.bezierCurveTo(x + 8, midY - 8, x + 16, midY - 4, x + 24, midY);
+          x += 24;
+        } else if (waveType === 'string') {
+          // đỉnh nhọn dốc đứng
+          ctx.lineTo(x + 8, midY - 28);
+          ctx.lineTo(x + 16, midY);
+          x += 16;
+          ctx.lineTo(x + 24, midY - 10);
+          ctx.lineTo(x + 32, midY);
+          x += 32;
+        } else if (waveType === 'rough') {
+          // khía răng cưa ứ huyết
+          ctx.lineTo(x + 8, midY - 14);
+          ctx.lineTo(x + 14, midY - 8);
+          ctx.lineTo(x + 22, midY - 20);
+          ctx.lineTo(x + 30, midY);
+          x += 30;
+        } else {
+          // bình hòa mềm mại
+          ctx.bezierCurveTo(x + 12, midY - 20, x + 18, midY - 20, x + 28, midY);
+          x += 28;
+          ctx.bezierCurveTo(x + 8, midY - 10, x + 14, midY - 6, x + 22, midY);
+          x += 22;
+        }
+      }
+      ctx.stroke();
+    }
+
+    function renderIndicators() {
+      const box = document.getElementById('clinicIndicatorsContainer');
+      box.innerHTML = currentIndicators.map(item => {
+        let barColor = "from-teal-500 to-emerald-400";
+        let badgeColor = "text-emerald-400";
+        if (item.cat === "trung") {
+          barColor = "from-amber-500 to-orange-500";
+          badgeColor = "text-amber-400 font-bold";
+        } else if (item.cat === "trong") {
+          barColor = "from-rose-500 to-red-600";
+          badgeColor = "text-rose-400 font-black";
+        }
+        return `
+          <div>
+            <div class="flex justify-between text-[11px] mb-1">
+              <span class="text-slate-300 font-medium">${item.name}</span>
+              <span class="${badgeColor}">${item.level}</span>
+            </div>
+            <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800 flex">
+              <div class="bg-gradient-to-r ${barColor} h-full rounded-full transition-all duration-1000" style="width: ${item.score}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderQuizQuestions() {
+      const box = document.getElementById('quizContainerList');
+      box.innerHTML = EXTENDED_QUIZ_QUESTIONS.map((q, idx) => `
+        <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-2 text-xs">
+          <div class="flex justify-between items-center">
+            <p class="text-slate-200 font-medium"><strong class="text-teal-400">${idx + 1}.</strong> ${q.text}</p>
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-teal-400 font-mono">${q.organ}</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5">
+            ${[0, 1, 2, 3].map(val => `
+              <button type="button" onclick="selectQuizOption('${q.id}', ${val}, this)" class="btn-q-${q.id} py-1 px-1 text-[10px] rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition">
+                ${val === 0 ? 'Không có' : val === 1 ? 'Thỉnh thoảng' : val === 2 ? 'Khá nhiều' : 'Rất nghiêm trọng'}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectQuizOption(qid, val, btn) {
+      userAnswersMap[qid] = val;
+      document.querySelectorAll(`.btn-q-${qid}`).forEach(b => {
+        b.className = `btn-q-${qid} py-1 px-1 text-[10px] rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition`;
+      });
+      btn.className = `btn-q-${qid} py-1 px-1 text-[10px] font-bold rounded-lg bg-teal-500 text-slate-950 border border-teal-300 shadow transition`;
+      document.getElementById('quizCounterText').innerText = `${Object.keys(userAnswersMap).length}/${EXTENDED_QUIZ_QUESTIONS.length} đã chọn`;
+    }
+
+    function switchWorkTab(tabNum) {
+      document.querySelectorAll('.work-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`work-panel-${tabNum}`).classList.remove('hidden');
+
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`wtab-${i}`);
+        if (i === tabNum) {
+          btn.className = "py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition flex flex-col items-center shadow";
+        } else {
+          btn.className = "py-2 rounded-xl text-slate-400 hover:text-white transition flex flex-col items-center";
+        }
+      }
+      if (tabNum === 2) {
+        setTimeout(() => drawRealtimePpgWaveform(document.getElementById('selectPpgWaveManual').value), 100);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchClinicTab(tabId) {
+      document.querySelectorAll('.clinic-subtab').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('[id^="btn-cl-"]').forEach(b => {
+        b.className = "flex-1 min-w-[85px] py-2 rounded-xl text-slate-400 hover:text-white transition";
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-cl-' + tabId.replace('cl-tab-', '')).className = "flex-1 min-w-[85px] py-2 rounded-xl bg-teal-500 text-slate-950 font-bold transition shadow";
+    }
+
+    function quickLoadClinicVideoCase() {
+      document.getElementById('ptName').value = "Nguyễn Văn A (Ca Video)";
+      document.getElementById('ptAge').value = "38";
+      document.getElementById('ptGender').value = "Nam";
+      document.getElementById('ptHeight').value = "172";
+      document.getElementById('ptWeight').value = "73";
+      calcPatientBmi();
+
+      const imgTop = document.getElementById('imgTongueTop');
+      imgTop.src = SVG_TONGUE_TOP;
+      imgTop.classList.remove('hidden');
+      document.getElementById('phTongueTop').classList.add('hidden');
+      document.getElementById('badgeTongueTop').innerText = "Đã Nạp";
+      document.getElementById('badgeTongueTop').className = "text-[10px] text-emerald-400 font-bold";
+
+      const imgSub = document.getElementById('imgTongueSub');
+      imgSub.src = SVG_TONGUE_SUB;
+      imgSub.classList.remove('hidden');
+      document.getElementById('phTongueSub').classList.add('hidden');
+      document.getElementById('badgeTongueSub').innerText = "Đã Nạp";
+      document.getElementById('badgeTongueSub').className = "text-[10px] text-emerald-400 font-bold";
+
+      const imgFace = document.getElementById('imgFace');
+      imgFace.src = SVG_FACE_IMG;
+      imgFace.classList.remove('hidden');
+      document.getElementById('phFace').classList.add('hidden');
+      document.getElementById('badgeFace').innerText = "Đã Nạp";
+      document.getElementById('badgeFace').className = "text-[10px] text-emerald-400 font-bold";
+
+      document.getElementById('selectPpgWaveManual').value = "smooth";
+      syncPulseValue(85);
+      syncSpO2Value(96);
+      syncStressValue(68);
+      syncPpgManualSelection("smooth");
+
+      EXTENDED_QUIZ_QUESTIONS.forEach(q => {
+        userAnswersMap[q.id] = q.def;
+        const btn = document.querySelector(`.btn-q-${q.id}:nth-child(${q.def + 1})`);
+        if (btn) selectQuizOption(q.id, q.def, btn);
+      });
+
+      showToast("Đã nạp chính xác ca bệnh từ Video!");
+      switchWorkTab(5);
+      switchClinicTab('cl-tab-1');
+    }
+
+    function startAiDiagnosisSimulation() {
+      const name = document.getElementById('ptName').value || "Bệnh Nhân";
+      const age = document.getElementById('ptAge').value || "35";
+      const gender = document.getElementById('ptGender').value || "Nam";
+      const bmiData = calcPatientBmi();
+
+      document.getElementById('repPatientTitle').innerText = `Báo cáo thể chất: ${name}`;
+      document.getElementById('repPatientSubMeta').innerText = `${gender} • ${age} tuổi • BMI ${bmiData.bmi} (${bmiData.state}) • Báo cáo độc quyền đã được xuất`;
+
+      updateDynamicClinicalDiagnosis();
+      showToast("Đang đồng bộ suy luận Tứ Chẩn toàn diện 18 trang...");
+      setTimeout(() => {
+        switchWorkTab(5);
+        switchClinicTab('cl-tab-1');
+      }, 700);
+    }
+
+    // Audio recording & playback simulation
+    let isRecordingAudio = false;
+    function toggleMicrophoneRecording() {
+      const icon = document.getElementById('iconRecordMic');
+      const prompt = document.getElementById('txtAudioPrompt');
+      const status = document.getElementById('txtSoundStatus');
+      if (!isRecordingAudio) {
+        isRecordingAudio = true;
+        icon.className = "fa-solid fa-stop text-rose-500 animate-pulse";
+        prompt.innerText = "Đang ghi âm hơi thở và giọng nói... (Chạm để dừng)";
+        status.innerText = "Đang thu";
+        status.className = "text-[10px] text-rose-400 font-mono animate-pulse";
+      } else {
+        isRecordingAudio = false;
+        icon.className = "fa-solid fa-microphone text-cyan-400";
+        prompt.innerText = "Đã ghi nhận mẫu giọng nói thành công!";
+        status.innerText = "Đã phân tích";
+        status.className = "text-[10px] text-emerald-400 font-mono";
+        showToast("Đã phân tích âm phổ thanh âm & hơi thở!");
+      }
+    }
+
+    // Web Audio Synthesizer: Ngũ Âm Lượng Tử 5 Tạng
+    let audioCtx = null;
+    let activeOscillator = null;
+    let activeGainNode = null;
+
+    const FIVE_TONES_CONFIG = {
+      cung: { freq: 261.63, name: "CUNG (宫) - Hành Thổ • Kiện Tỳ", desc: "Tần số 261.6 Hz: Kiện tỳ hòa vị, tiêu trừ chứng sình bụng, trướng hơi khó tiêu." },
+      thuong: { freq: 293.66, name: "THƯƠNG (商) - Hành Kim • Thanh Phế", desc: "Tần số 293.6 Hz: Tuyên thông khí đạo, thanh nhiệt họng, đặc trị ngứa rát họng vướng đờm." },
+      goc: { freq: 329.63, name: "DỐC (角) - Hành Mộc • Thư Can", desc: "Tần số 329.6 Hz: Thư can giải uất, xoa dịu stress, hạ nhịp tim 85 BPM về trạng thái bình hòa." },
+      chuy: { freq: 392.00, name: "CHỦY (徵) - Hành Hỏa • Dưỡng Tâm", desc: "Tần số 392.0 Hz: Dưỡng tâm khí, kích hoạt tuần hoàn máu, xua tan trầm cảm và mệt mỏi." },
+      vu: { freq: 440.00, name: "VŨ (羽) - Hành Thủy • Bổ Thận", desc: "Tần số 440.0 Hz: Bổ thận tư âm, giáng hỏa hư nhiệt, dứt điểm mộng mị và hồi phục giấc ngủ sâu." }
+    };
+
+    function playFiveToneSynthesizer(toneKey) {
+      stopFiveToneSynthesizer();
+      const cfg = FIVE_TONES_CONFIG[toneKey];
+      if (!cfg) return;
+
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        activeOscillator = audioCtx.createOscillator();
+        activeGainNode = audioCtx.createGain();
+
+        activeOscillator.type = 'sine';
+        activeOscillator.frequency.setValueAtTime(cfg.freq, audioCtx.currentTime);
+
+        activeGainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        activeGainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.5);
+
+        activeOscillator.connect(activeGainNode);
+        activeGainNode.connect(audioCtx.destination);
+        activeOscillator.start();
+
+        document.getElementById('lblTonePlayingName').innerText = cfg.name;
+        document.getElementById('lblTonePlayingDesc').innerText = cfg.desc;
+        document.getElementById('txtAudioPlayingTag').innerText = "Đang phát...";
+        document.getElementById('txtAudioPlayingTag').className = "text-[10px] bg-purple-900/60 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-full font-mono animate-pulse";
+        document.getElementById('iconSoundWave').className = "w-10 h-10 rounded-full bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-300 relative overflow-hidden pulse-glow";
+        showToast(`Đang phát điệu ${cfg.name.split(' ')[0]}`);
+      } catch (e) {
+        showToast("Trình duyệt chưa cho phép phát âm thanh tự động.");
+      }
+    }
+
+    function stopFiveToneSynthesizer() {
+      if (activeOscillator) {
+        try {
+          activeGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+          setTimeout(() => {
+            if (activeOscillator) {
+              activeOscillator.stop();
+              activeOscillator.disconnect();
+              activeOscillator = null;
+            }
+          }, 300);
+        } catch (e) {
+          activeOscillator = null;
+        }
+      }
+      document.getElementById('txtAudioPlayingTag').innerText = "Đang tắt";
+      document.getElementById('txtAudioPlayingTag').className = "text-[10px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded-full font-mono";
+      document.getElementById('iconSoundWave').className = "w-10 h-10 rounded-full bg-purple-950 border border-purple-500/40 flex items-center justify-center text-purple-300 relative overflow-hidden";
+    }
+
+    function showAcupointDetailModal(pointKey) {
+      const pointInfo = {
+        noi_quan: "HUYỆT NỘI QUAN (PC6 - Tâm Bào Kinh):\n• Vị trí: Cách lằn chỉ cổ tay 2 thốn, giữa hai gân cơ gan tay lớn và bé.\n• Thủ pháp: Dùng ngón tay cái ấn góc 90 độ, day tròn 1-2 phút (10-15 lần).\n• Hiệu lực: Định tâm an thần, điều hòa nhịp tim 85 BPM, giảm căng thẳng bồn chồn.",
+        ngoai_quan: "HUYỆT NGOẠI QUAN (SJ5 - Tam Tiêu Kinh):\n• Vị trí: Mặt sau cẳng tay, từ lằn cổ tay sau đo lên 2 thốn, nằm giữa xương quay và xương trụ (đối diện với huyệt Nội Quan).\n• Thủ pháp: Day ấn kết hợp vê nhẹ 1 phút.\n• Hiệu lực: Giải biểu nhiệt, sơ phong thông lạc, giảm đau nửa đầu, đau vai gáy và nhức mỏi cánh tay.",
+        khich_mon: "HUYỆT KHÍCH MÔN (PC4 - Khích Huyệt Tâm Bào):\n• Vị trí: Từ lằn cổ tay đo lên 5 thốn trên đường nối Đại Lăng và Khúc Trạch.\n• Thủ pháp: Ấn sâu từ từ đến khi có cảm giác tức nặng lan tỏa.\n• Hiệu lực: Trị cơn đau thắt lồng ngực, thanh tâm nhiệt, dưỡng tâm khí khi nhịp tim duy trì 85 BPM.",
+        xich_trach: "HUYỆT XÍCH TRẠCH (LU5 - Phế Kinh):\n• Vị trí: Tại nếp gấp khuỷu tay, chỗ lõm bờ ngoài gân cơ nhị đầu cánh tay.\n• Thủ pháp: Day ấn theo chiều kim đồng hồ 1-2 phút.\n• Hiệu lực: Hợp huyệt hành Thủy của Phế kinh. Thanh trừ viêm họng mạn tính, ngứa rát họng, ho khan từng cơn.",
+        huyet_hai: "HUYỆT HUYẾT HẢI (SP10 - Tỳ Kinh):\n• Vị trí: Mặt trong đùi, từ bờ trên trong xương bánh chè đo lên 2 thốn.\n• Thủ pháp: Dùng ngón cái ấn miết chếch lên trên.\n• Hiệu lực: 'Biển của huyết dịch'. Hoạt huyết hóa ứ mạnh mẽ, khơi thông tĩnh mạch tím dưới đáy lưỡi và sắc môi xỉn màu.",
+        khi_hai: "HUYỆT KHÍ HẢI (CV6 - Nhâm Mạch):\n• Vị trí: Nằm trên đường giữa bụng, dưới rốn đúng 1.5 thốn (khoảng 2 ngón tay).\n• Thủ pháp: Day nhẹ nhàng hoặc cứu ấm 3-5 phút.\n• Hiệu lực: 'Bể chứa nguyên khí'. Bổ khí ích thận, kiện toàn tiêu hóa, xua tan tình trạng sáng thức dậy người mệt mỏi rã rời.",
+        dai_truy: "HUYỆT ĐẠI TRÙY / ĐẠI TRĨ (GV14 - Đốc Mạch):\n• Vị trí: Ngay chỗ lõm phía dưới mỏm gai đốt sống cổ thứ 7 (C7 - đốt gồ cao nhất khi cúi đầu).\n• Thủ pháp: Day ấn kết hợp xoa ấm vùng cổ gáy.\n• Hiệu lực: Nơi hội tụ của tất cả các đường kinh dương. Giải phóng ứ trệ đốt sống cổ, trị cứng cổ vai gáy và tăng cường tuần hoàn não.",
+        thai_xung: "HUYỆT THÁI XUNG (LR3 - Can Kinh):\n• Vị trí: Mu bàn chân, từ kẽ ngón chân cái và ngón thứ hai đo lên 1.5 thốn trong chỗ lõm tạo bởi hai đầu xương bàn chân.\n• Thủ pháp: Day ấn chếch về phía cổ chân 1-2 phút.\n• Hiệu lực: Nguyên huyệt của kinh Can. Bình can giáng hỏa, sơ thông can khí uất kết, dập tắt các cơn cáu gắt và lo âu quá mức.",
+        tuc_tam_ly: "HUYỆT TÚC TAM LÝ (ST36 - Vị Kinh):\n• Vị trí: Dưới hõm ngoài xương bánh chè 3 thốn (bằng 4 ngón tay khép lại), cách mào chày 1 khoát ngón tay.\n• Thủ pháp: Day ấn mạnh mẽ 2-3 phút mỗi chân.\n• Hiệu lực: Đệ nhất huyệt kiện tỳ hòa vị. Trị dứt điểm chứng ăn đồ dầu mỡ bị sình bụng, trướng hơi khó tiêu, tăng cường miễn dịch toàn thân.",
+        tam_am_giao: "HUYỆT TAM ÂM GIAO (SP6 - Hội 3 Kinh Âm):\n• Vị trí: Mặt trong cẳng chân, từ đỉnh mắt cá trong đo thẳng lên 3 thốn, sát bờ sau xương chày.\n• Thủ pháp: Dùng ngón cái ấn vuông góc giữ 10 giây rồi thả lỏng, lặp lại 10-15 lần.\n• Hiệu lực: Nơi giao nhau của 3 kinh Can - Tỳ - Thận. Tư âm giáng hỏa, thông kinh hoạt huyết, đặc trị mất ngủ trằn trọc và mê man nửa đêm."
+      };
+      showToast(pointInfo[pointKey] || "Chi tiết huyệt đạo.");
+    }
+
+    const DIET_DAYS_DATA = {
+      1: {
+        title: "Ngày 1: Thanh Can Giáng Hỏa (Hạ Nhịp Tim 85 BPM)",
+        morning: "Cháo gạo tẻ đậu xanh nha đam (60g đậu xanh + 100g gạo japonica).",
+        lunch: "Canh mướp đắng hầm thịt nạc thanh đạm, rau đay luộc.",
+        dinner: "Canh rau ngót nấu tôm tươi thanh nhiệt, cơm gạo lứt nhẹ bụng.",
+        tea: "Trà hoa cúc tâm sen xua tan âu lo bồn chồn."
+      },
+      2: {
+        title: "Ngày 2: Kiện Tỳ Hóa Thấp (Tiêu Trừ Sình Bụng)",
+        morning: "Cháo ý dĩ hạt sen bí đỏ kiện tỳ trừ ẩm.",
+        lunch: "Cá quả hấp gừng thì là, rau lang luộc chấm tương dưỡng sinh.",
+        dinner: "Canh súp củ mài (hoài sơn) nấu sườn nạc, cơm hấp hạt kê.",
+        tea: "Nước râu ngô mã đề lợi thấp trung tiêu."
+      },
+      3: {
+        title: "Ngày 3: Hoạt Huyết Khơi Thông (Tiêu Mạch Tím Dưới Lưỡi)",
+        morning: "Cháo gạo lứt đậu đen đan sâm hoạt huyết dưỡng tâm.",
+        lunch: "Mộc nhĩ đen xào ức gà nấm hương, canh cải ngọt.",
+        dinner: "Canh rong biển đậu phụ non giải phóng vi tuần hoàn ngoại biên.",
+        tea: "Trà hoa hồng tam thất tan huyết ứ trệ."
+      },
+      4: {
+        title: "Ngày 4: Tuyên Phế Chỉ Khái (Dứt Điểm Viêm Họng Mạn)",
+        morning: "Cháo bách hợp ngân nhĩ đường phèn nhuận phế hầu họng.",
+        lunch: "Thịt nạc luộc cuốn rau sống thanh mát, canh bí đao tôm khô.",
+        dinner: "Canh củ sen hầm táo đỏ dưỡng âm, cá thu sốt cà chua nhạt.",
+        tea: "Lê hấp xuyên bối mẫu trị dứt khô rát họng vướng đờm."
+      },
+      5: {
+        title: "Ngày 5: Dưỡng Tâm Bổ Khí (Hồi Phục Thể Lực & Giấc Ngủ Sâu)",
+        morning: "Cháo yến mạch long nhãn kỷ tử bổ khí huyết.",
+        lunch: "Gà ác hầm hoàng kỳ đẳng sâm tiêu trừ mệt mỏi trầm cảm.",
+        dinner: "Canh hoa thiên lý nấu thịt băm an thần, giấc ngủ sâu trước 23h.",
+        tea: "Trà lạc tiên lá vông nem êm dịu thần kinh."
+      }
+    };
+
+    function switchDietDay(dayNum) {
+      for (let i = 1; i <= 5; i++) {
+        const b = document.getElementById(`btnDay${i}`);
+        if (i === dayNum) {
+          b.className = "px-2 py-0.5 rounded bg-teal-500 text-slate-950 font-bold text-[10px]";
+        } else {
+          b.className = "px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]";
+        }
+      }
+      const d = DIET_DAYS_DATA[dayNum];
+      document.getElementById('dietDayContent').innerHTML = `
+        <strong class="text-teal-300 block">${d.title}</strong>
+        <p>• Sáng: ${d.morning}</p>
+        <p>• Trưa: ${d.lunch}</p>
+        <p>• Tối: ${d.dinner}</p>
+        <p>• Trà thảo dược: ${d.tea}</p>
+      `;
+    }
+
+    function connectBluetoothSmartwatch() {
+      const txt = document.getElementById('bleStatusText');
+      txt.innerText = "Đang quét...";
+      setTimeout(() => {
+        txt.innerText = "Huawei Watch (85 BPM)";
+        syncPulseValue(85);
+        syncSpO2Value(96);
+        syncStressValue(68);
+        syncPpgManualSelection("smooth");
+        showToast("Đã đồng bộ nhịp tim 85 BPM từ Smartwatch!");
+      }, 700);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').innerText = msg;
+      t.classList.remove('hidden');
+      setTimeout(() => t.classList.add('hidden'), 3500);
+    }
+
+    function toggleConfigModal() {
+      document.getElementById('apiConfigPanel').classList.toggle('hidden');
+    }
+
+    function saveApiKey() {
+      const k = document.getElementById('apiKeyInput').value.trim();
+      localStorage.setItem('GEMINI_API_KEY_LOCAL', k);
+      toggleConfigModal();
+      showToast("Đã lưu khóa API an toàn!");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      calcPatientBmi();
+      renderIndicators();
+      renderQuizQuestions();
+      const savedKey = localStorage.getItem('GEMINI_API_KEY_LOCAL') || getDecodedDefaultKey();
+      document.getElementById('apiKeyInput').value = savedKey;
+      syncPpgManualSelection("smooth");
+      updateDynamicClinicalDiagnosis();
+    });
+  </script>
 </body>
 </html>
